@@ -1,5 +1,7 @@
 # Codex Account Hub
 
+<img src="CodexAccountHub/Assets.xcassets/AppIcon.appiconset/appicon-256.png" alt="Codex Account Hub icon" width="96" />
+
 Codex Account Hub is a macOS-only SwiftUI desktop app for managing multiple local Codex account profiles and safely switching the live `auth.json` used by Codex CLI and the Codex desktop app.
 
 ## Status
