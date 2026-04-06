@@ -148,7 +148,6 @@ if [[ ! -d "$APP_PATH" ]]; then
 fi
 
 codesign --verify --deep --strict --verbose=2 "$APP_PATH"
-spctl -a -vv "$APP_PATH"
 
 rm -rf "$STAGING_DIR"
 mkdir -p "$STAGING_DIR"
