@@ -6,25 +6,27 @@ enum AppSceneID {
 
 @main
 struct CodexAccountHubApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var model = AppModel()
+    @State private var runtime = AppRuntime()
 
     var body: some Scene {
-        WindowGroup(id: AppSceneID.mainWindow) {
-            ContentView(model: model)
+        Window("Codex Account Hub", id: AppSceneID.mainWindow) {
+            ContentView(model: model, runtime: runtime)
         }
         .defaultSize(width: 460, height: 620)
         .windowStyle(.titleBar)
         .windowResizability(.contentSize)
 
         MenuBarExtra {
-            MenuBarProfilesView(model: model)
+            MenuBarProfilesView(model: model, runtime: runtime)
         } label: {
             Label("Codex Account Hub", image: "MenuBarIcon")
         }
         .menuBarExtraStyle(.menu)
 
         Settings {
-            SettingsView(model: model)
+            SettingsView(model: model, runtime: runtime)
         }
     }
 }

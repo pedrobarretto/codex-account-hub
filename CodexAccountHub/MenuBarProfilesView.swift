@@ -4,7 +4,9 @@ import SwiftUI
 
 struct MenuBarProfilesView: View {
     @Bindable var model: AppModel
+    @Bindable var runtime: AppRuntime
     @Environment(\.openWindow) private var openWindow
+    @Environment(\.openSettings) private var openSettings
 
     var body: some View {
         Group {
@@ -26,15 +28,55 @@ struct MenuBarProfilesView: View {
                 }
             }
 
+            if let banner = runtime.bannerMessage {
+                Divider()
+
+                Section("App Status") {
+                    Text(banner.text)
+                        .font(.caption)
+                }
+            }
+
             Divider()
 
-            Button("Open App…") {
-                openWindow(id: AppSceneID.mainWindow)
+            Button("Open Account Hub…") {
+                runtime.openMainWindow {
+                    model.load()
+                    openWindow(id: AppSceneID.mainWindow)
+                }
+            }
+
+            Button("Settings…") {
+                runtime.openSettings {
+                    openSettings()
+                }
+            }
+
+            Toggle("Launch at Login", isOn: launchAtLoginBinding)
+
+            if let detailText = runtime.launchAtLoginState.detailText {
+                Text(detailText)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Divider()
+
+            Button("Quit") {
+                runtime.quit()
             }
         }
         .onAppear {
             model.load()
+            runtime.load()
         }
+    }
+
+    private var launchAtLoginBinding: Binding<Bool> {
+        Binding(
+            get: { runtime.launchAtLoginState.isToggleOn },
+            set: { runtime.setLaunchAtLoginEnabled($0) }
+        )
     }
 
     private func switchProfile(_ profile: ProfileMetadata) {

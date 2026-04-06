@@ -3,16 +3,42 @@ import SwiftUI
 
 struct SettingsView: View {
     @Bindable var model: AppModel
+    @Bindable var runtime: AppRuntime
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Settings")
                     .font(.title2.weight(.semibold))
-                Text("Only use an override when the app should manage a different `CODEX_HOME` than the one Finder can see.")
+                Text("Codex Account Hub runs as a menu bar utility. Use these settings to control startup behavior and the effective `CODEX_HOME` path it manages.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
+
+            if let banner = runtime.bannerMessage {
+                BannerMessageCard(banner: banner) {
+                    runtime.dismissBanner()
+                }
+            }
+
+            VStack(alignment: .leading, spacing: 14) {
+                Text("App Behavior")
+                    .font(.headline)
+
+                Toggle("Launch at Login", isOn: launchAtLoginBinding)
+
+                Text("Closing the main window keeps the app resident in the menu bar until you explicitly quit it from the menu bar menu.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+
+                if let detailText = runtime.launchAtLoginState.detailText {
+                    Text(detailText)
+                        .font(.caption)
+                        .foregroundStyle(runtime.launchAtLoginState == .requiresApproval ? .orange : .secondary)
+                }
+            }
+            .padding(18)
+            .background(settingsCard)
 
             VStack(alignment: .leading, spacing: 14) {
                 Text("Codex Home Override")
@@ -64,6 +90,9 @@ struct SettingsView: View {
             )
             .ignoresSafeArea()
         )
+        .onAppear {
+            runtime.load()
+        }
     }
 
     private var settingsCard: some View {
@@ -73,6 +102,13 @@ struct SettingsView: View {
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .strokeBorder(.white.opacity(0.45), lineWidth: 1)
             }
+    }
+
+    private var launchAtLoginBinding: Binding<Bool> {
+        Binding(
+            get: { runtime.launchAtLoginState.isToggleOn },
+            set: { runtime.setLaunchAtLoginEnabled($0) }
+        )
     }
 
     private func openFolderPanel() -> URL? {

@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 
 struct ContentView: View {
     @Bindable var model: AppModel
+    @Bindable var runtime: AppRuntime
     @State private var editedProfileID: UUID?
     @State private var isShowingRenameSheet = false
     @State private var renameDisplayName = ""
@@ -16,7 +17,15 @@ struct ContentView: View {
                 actionsCard
 
                 if let banner = model.bannerMessage {
-                    bannerRow(banner)
+                    BannerMessageCard(banner: banner) {
+                        model.dismissBanner()
+                    }
+                }
+
+                if let banner = runtime.bannerMessage {
+                    BannerMessageCard(banner: banner) {
+                        runtime.dismissBanner()
+                    }
                 }
 
                 profilesCard
@@ -76,6 +85,7 @@ struct ContentView: View {
         }
         .onAppear {
             model.load()
+            runtime.load()
         }
     }
 
@@ -84,8 +94,12 @@ struct ContentView: View {
             Text("Codex Account Hub")
                 .font(.title2.weight(.semibold))
 
-            Text("Import a Codex `auth.json`, keep saved profiles here, and click a profile to make it active.")
+            Text("Import a Codex `auth.json`, keep saved profiles here, and switch accounts from the menu bar whenever you need them.")
                 .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+            Text("Closing this window keeps Codex Account Hub running in the menu bar. Use the menu bar icon to reopen the app, change settings, or quit.")
+                .font(.caption)
                 .foregroundStyle(.secondary)
 
             VStack(alignment: .leading, spacing: 6) {
@@ -241,25 +255,6 @@ struct ContentView: View {
         return "Delete \"\(profile.displayName)\" from saved profiles?"
     }
 
-    private func bannerRow(_ banner: BannerMessage) -> some View {
-        HStack(spacing: 12) {
-            Image(systemName: symbolName(for: banner.kind))
-                .foregroundStyle(symbolColor(for: banner.kind))
-            Text(banner.text)
-                .font(.subheadline)
-                .foregroundStyle(.primary)
-            Spacer()
-            Button("Dismiss") {
-                model.dismissBanner()
-            }
-            .buttonStyle(.plain)
-            .foregroundStyle(.secondary)
-        }
-        .padding(14)
-        .background(backgroundColor(for: banner.kind))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-    }
-
     private var windowBackground: some View {
         LinearGradient(
             colors: [
@@ -293,45 +288,6 @@ struct ContentView: View {
                     .strokeBorder(.white.opacity(0.4), lineWidth: 1)
             }
             .shadow(color: .black.opacity(0.05), radius: 16, x: 0, y: 10)
-    }
-
-    private func backgroundColor(for kind: BannerKind) -> Color {
-        switch kind {
-        case .info:
-            return .blue.opacity(0.12)
-        case .success:
-            return .green.opacity(0.12)
-        case .warning:
-            return .orange.opacity(0.12)
-        case .error:
-            return .red.opacity(0.12)
-        }
-    }
-
-    private func symbolColor(for kind: BannerKind) -> Color {
-        switch kind {
-        case .info:
-            return .blue
-        case .success:
-            return .green
-        case .warning:
-            return .orange
-        case .error:
-            return .red
-        }
-    }
-
-    private func symbolName(for kind: BannerKind) -> String {
-        switch kind {
-        case .info:
-            return "info.circle.fill"
-        case .success:
-            return "checkmark.circle.fill"
-        case .warning:
-            return "exclamationmark.triangle.fill"
-        case .error:
-            return "xmark.octagon.fill"
-        }
     }
 
     private func openJSONPanel() -> URL? {

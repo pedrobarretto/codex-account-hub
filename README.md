@@ -2,7 +2,7 @@
 
 <img src="CodexAccountHub/Assets.xcassets/AppIcon.appiconset/appicon-256.png" alt="Codex Account Hub icon" width="96" />
 
-Codex Account Hub is a macOS-only SwiftUI desktop app for managing multiple local Codex account profiles and safely switching the live `auth.json` used by Codex CLI and the Codex desktop app.
+Codex Account Hub is a macOS-only SwiftUI menu bar app for managing multiple local Codex account profiles and safely switching the live `auth.json` used by Codex CLI and the Codex desktop app.
 
 ## Status
 - macOS-only local utility
@@ -78,10 +78,11 @@ ruby scripts/generate_xcodeproj.rb
 
 ## First Run
 1. Launch the app.
-2. Import your current effective `auth.json` or choose another local auth file.
-3. Save one or more named profiles.
-4. Click a saved profile to make it active.
-5. Restart any already-running Codex processes if you used force-switching.
+2. Use the menu bar icon to open the main window when you need it.
+3. Import your current effective `auth.json` or choose another local auth file.
+4. Save one or more named profiles.
+5. Click a saved profile to make it active.
+6. Restart any already-running Codex processes if you used force-switching.
 
 ## Test Commands
 Core package tests:
@@ -110,6 +111,7 @@ xcodebuild -project CodexAccountHub.xcodeproj -scheme CodexAccountHub -destinati
 
 ## Important Behavior Notes
 - Finder-launched apps usually do not inherit shell-only `CODEX_HOME` exports. Use the app’s explicit Codex home override when you need a different live target.
+- The app is designed to stay resident in the menu bar after you close its windows. Use the menu bar menu to reopen the app, change settings, enable Launch at Login, or quit.
 - The app intentionally preserves unknown `auth.json` keys by storing the full raw JSON payload.
 - The app blocks switching when Codex desktop, helper, app-server, or CLI processes are running. You can force-switch, but already-running Codex processes may keep their old credentials until restarted.
 - This is a local personal tool. It is unsandboxed on purpose and is not intended for Mac App Store distribution.
