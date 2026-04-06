@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2ACD7990FAEB48EF1206C6A5"
+               BlueprintIdentifier = "ACF075BF8B0970EBEDCBE695"
                BuildableName = "CodexAccountHub.app"
                BlueprintName = "CodexAccountHub"
                ReferencedContainer = "container:CodexAccountHub.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "58728673E3888A7AC049C030"
+               BlueprintIdentifier = "9D1A858644AFB1FC6BD9E5D0"
                BuildableName = "CodexAccountHubTests.xctest"
                BlueprintName = "CodexAccountHubTests"
                ReferencedContainer = "container:CodexAccountHub.xcodeproj">
@@ -44,7 +44,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2ACD7990FAEB48EF1206C6A5"
+            BlueprintIdentifier = "ACF075BF8B0970EBEDCBE695"
             BuildableName = "CodexAccountHub.app"
             BlueprintName = "CodexAccountHub"
             ReferencedContainer = "container:CodexAccountHub.xcodeproj">
@@ -55,7 +55,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "58728673E3888A7AC049C030"
+               BlueprintIdentifier = "9D1A858644AFB1FC6BD9E5D0"
                BuildableName = "CodexAccountHubTests.xctest"
                BlueprintName = "CodexAccountHubTests"
                ReferencedContainer = "container:CodexAccountHub.xcodeproj">
@@ -77,7 +77,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2ACD7990FAEB48EF1206C6A5"
+            BlueprintIdentifier = "ACF075BF8B0970EBEDCBE695"
             BuildableName = "CodexAccountHub.app"
             BlueprintName = "CodexAccountHub"
             ReferencedContainer = "container:CodexAccountHub.xcodeproj">
@@ -94,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2ACD7990FAEB48EF1206C6A5"
+            BlueprintIdentifier = "ACF075BF8B0970EBEDCBE695"
             BuildableName = "CodexAccountHub.app"
             BlueprintName = "CodexAccountHub"
             ReferencedContainer = "container:CodexAccountHub.xcodeproj">

@@ -10,11 +10,18 @@ permissions:
 
 jobs:
   build-release:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Select newest installed Xcode
+        run: |
+          DEVELOPER_DIR_PATH="$(ls -d /Applications/Xcode*.app | sort -V | tail -n 1)/Contents/Developer"
+          echo "Using Xcode at $DEVELOPER_DIR_PATH"
+          sudo xcode-select -s "$DEVELOPER_DIR_PATH"
+          xcodebuild -version
 
       - name: Build, sign, notarize, and package release artifacts
         env:
