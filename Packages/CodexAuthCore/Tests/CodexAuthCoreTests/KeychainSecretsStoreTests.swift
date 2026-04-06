@@ -3,6 +3,10 @@ import XCTest
 
 final class KeychainSecretsStoreTests: XCTestCase {
     func testSaveLoadDeleteRoundTrip() throws {
+        if ProcessInfo.processInfo.environment["CI"] == "true" {
+            throw XCTSkip("GitHub Actions macOS runners do not provide a stable interactive Keychain environment for this integration test.")
+        }
+
         let service = "dev.codex-account-hub.tests.\(UUID().uuidString)"
         let store = KeychainSecretsStore(service: service)
         let id = UUID()

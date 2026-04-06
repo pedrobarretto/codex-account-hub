@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9D1A858644AFB1FC6BD9E5D0"
+               BlueprintIdentifier = "92DF370CA2EEE9EF0BD3C4CD"
                BuildableName = "CodexAccountHubTests.xctest"
                BlueprintName = "CodexAccountHubTests"
                ReferencedContainer = "container:CodexAccountHub.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9D1A858644AFB1FC6BD9E5D0"
+               BlueprintIdentifier = "92DF370CA2EEE9EF0BD3C4CD"
                BuildableName = "CodexAccountHubTests.xctest"
                BlueprintName = "CodexAccountHubTests"
                ReferencedContainer = "container:CodexAccountHub.xcodeproj">
