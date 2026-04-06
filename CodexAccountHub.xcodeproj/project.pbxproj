@@ -7,142 +7,142 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02412C084B66E2A4F66017A4 /* BannerMessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAE9B87C4F4EF0D5A2A0938 /* BannerMessageCard.swift */; };
-		09D98A7BA32E3788EEA643CD /* MenuBarProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799AEF58C2F6157997F32EF /* MenuBarProfilesView.swift */; };
-		16B74550F7C142FDAD3BAAD8 /* AppRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70A840A11C02264189F6F0 /* AppRuntime.swift */; };
-		4062F15AA6563E354D8B2DD9 /* CodexAccountHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B02ED7FEE538AE0975F316 /* CodexAccountHubApp.swift */; };
-		44942EA29BE2A41E88742508 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D49EADD2F01A51C6203007 /* SettingsView.swift */; };
-		458F6F7A2681941711C25D89 /* CodexAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 58610C47376A5174B3CF8D2B /* CodexAuthCore */; };
-		55682E100FD46FE6F66AB6A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AB907E9829B571184EB2F9 /* ContentView.swift */; };
-		6FC70FC29E18AEC487338489 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0FC607CE1B078D02CFE6C90 /* Cocoa.framework */; };
-		7A935196AAB364CFC3686BB2 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1288532CB073345F2F280C50 /* AppModel.swift */; };
-		7B1703CD1CE43F9A3EA81E9B /* AppRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECC8D64C0B9332C2F16E924 /* AppRuntimeTests.swift */; };
-		7E885CD28A8317495B38D1A2 /* ProjectSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968E6A017305BDEB60B4CBB4 /* ProjectSmokeTests.swift */; };
-		A551DDE1E432AF340F62F5F7 /* ProfileDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82D16DDE1EA5573D6581BE /* ProfileDraft.swift */; };
-		A56A6BA9E30A459443327089 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0FC607CE1B078D02CFE6C90 /* Cocoa.framework */; };
-		C2235B409634BDC714C4BF73 /* CodexAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = F1100664B842135C2F1B4DC4 /* CodexAuthCore */; };
-		C3DD94EC69CADFA8A763B234 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2ECE8DADEBCA8CB27FA4AF8 /* Assets.xcassets */; };
+		0E025F90711B60366117926F /* CodexAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 8D58C974406E7D12DC03A950 /* CodexAuthCore */; };
+		1FBFCC5778CC986BE6D7A335 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB671954D9AC9D5C9DB6DFBA /* SettingsView.swift */; };
+		38327344B0B1D2B963A088B2 /* AppRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E47339A60AC5C781F9D2B9 /* AppRuntime.swift */; };
+		3D22974179F46CCB133DFF7F /* ProfileDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD4AA06A046CEFCF774D8A1 /* ProfileDraft.swift */; };
+		4B7AC816AD573937A3DBD80D /* BannerMessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D139F48A8BEA1387615758A5 /* BannerMessageCard.swift */; };
+		82D4157628A3CA644CEDA48C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469EF7D033EBCB17D40F65D /* ContentView.swift */; };
+		8A8F80DE1D072EBE43B0E3C8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF5AB6CAE0339F52DD4E646 /* Cocoa.framework */; };
+		9437C30B9BB32C16ED52078C /* MenuBarProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D0A54E8960C64DA91A1154 /* MenuBarProfilesView.swift */; };
+		A323E19333148E4637AB86B3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF5AB6CAE0339F52DD4E646 /* Cocoa.framework */; };
+		A98E755F2F22C10A68F4E991 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0078367F97FC58908A63CB6A /* AppModel.swift */; };
+		B90C14B78F628A5495C9B1EA /* CodexAccountHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF976BD70DF4CE036588660 /* CodexAccountHubApp.swift */; };
+		BBB6AB8C3288473925E4A72C /* ProjectSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7979B4E93BF1D89A953A057A /* ProjectSmokeTests.swift */; };
+		C50E49239CEBD115D913D879 /* AppRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04F21085AF89626D372BE4 /* AppRuntimeTests.swift */; };
+		C68F1EF63EA274303EBE6C10 /* CodexAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4FA599B42B77C47DA44ADDEA /* CodexAuthCore */; };
+		E2EB7A3E62C18BF05513C99D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C729BAA6D3533205C0CF06D6 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BBDFC81DF1ADEE27E40AA758 /* PBXContainerItemProxy */ = {
+		C31F5974C6B94DE260E93376 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 54BF9CD78868DFCD601DA1F7 /* Project object */;
+			containerPortal = 52AB940BD8C2ED2590DB23D5 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0B7D07DB62E85A0F284C71CC;
+			remoteGlobalIDString = 2ACD7990FAEB48EF1206C6A5;
 			remoteInfo = CodexAccountHub;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0407CB109758154F6F9F91C0 /* CodexAccountHubTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodexAccountHubTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1288532CB073345F2F280C50 /* AppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppModel.swift; path = CodexAccountHub/AppModel.swift; sourceTree = "<group>"; };
-		2A70A840A11C02264189F6F0 /* AppRuntime.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppRuntime.swift; path = CodexAccountHub/AppRuntime.swift; sourceTree = "<group>"; };
-		31D49EADD2F01A51C6203007 /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = CodexAccountHub/SettingsView.swift; sourceTree = "<group>"; };
-		40FFD35CBA77AD6F6A6CD328 /* CodexAccountHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodexAccountHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		41AB907E9829B571184EB2F9 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = CodexAccountHub/ContentView.swift; sourceTree = "<group>"; };
-		5799AEF58C2F6157997F32EF /* MenuBarProfilesView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MenuBarProfilesView.swift; path = CodexAccountHub/MenuBarProfilesView.swift; sourceTree = "<group>"; };
-		6ECC8D64C0B9332C2F16E924 /* AppRuntimeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppRuntimeTests.swift; path = CodexAccountHubTests/AppRuntimeTests.swift; sourceTree = "<group>"; };
-		8DAE9B87C4F4EF0D5A2A0938 /* BannerMessageCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BannerMessageCard.swift; path = CodexAccountHub/BannerMessageCard.swift; sourceTree = "<group>"; };
-		78B02ED7FEE538AE0975F316 /* CodexAccountHubApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodexAccountHubApp.swift; path = CodexAccountHub/CodexAccountHubApp.swift; sourceTree = "<group>"; };
-		968E6A017305BDEB60B4CBB4 /* ProjectSmokeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProjectSmokeTests.swift; path = CodexAccountHubTests/ProjectSmokeTests.swift; sourceTree = "<group>"; };
-		9F82D16DDE1EA5573D6581BE /* ProfileDraft.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProfileDraft.swift; path = CodexAccountHub/ProfileDraft.swift; sourceTree = "<group>"; };
-		B2ECE8DADEBCA8CB27FA4AF8 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = CodexAccountHub/Assets.xcassets; sourceTree = "<group>"; };
-		C0FC607CE1B078D02CFE6C90 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		0078367F97FC58908A63CB6A /* AppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppModel.swift; path = CodexAccountHub/AppModel.swift; sourceTree = "<group>"; };
+		0AF5AB6CAE0339F52DD4E646 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		5CD4AA06A046CEFCF774D8A1 /* ProfileDraft.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProfileDraft.swift; path = CodexAccountHub/ProfileDraft.swift; sourceTree = "<group>"; };
+		674F89170DE0E513AE30D56F /* CodexAccountHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodexAccountHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7979B4E93BF1D89A953A057A /* ProjectSmokeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProjectSmokeTests.swift; path = CodexAccountHubTests/ProjectSmokeTests.swift; sourceTree = "<group>"; };
+		8DF976BD70DF4CE036588660 /* CodexAccountHubApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodexAccountHubApp.swift; path = CodexAccountHub/CodexAccountHubApp.swift; sourceTree = "<group>"; };
+		90DE826791E5E07919A62ADF /* CodexAccountHubTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodexAccountHubTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8E47339A60AC5C781F9D2B9 /* AppRuntime.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppRuntime.swift; path = CodexAccountHub/AppRuntime.swift; sourceTree = "<group>"; };
+		AA04F21085AF89626D372BE4 /* AppRuntimeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppRuntimeTests.swift; path = CodexAccountHubTests/AppRuntimeTests.swift; sourceTree = "<group>"; };
+		C729BAA6D3533205C0CF06D6 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = CodexAccountHub/Assets.xcassets; sourceTree = "<group>"; };
+		CB671954D9AC9D5C9DB6DFBA /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = CodexAccountHub/SettingsView.swift; sourceTree = "<group>"; };
+		D139F48A8BEA1387615758A5 /* BannerMessageCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BannerMessageCard.swift; path = CodexAccountHub/BannerMessageCard.swift; sourceTree = "<group>"; };
+		E6D0A54E8960C64DA91A1154 /* MenuBarProfilesView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MenuBarProfilesView.swift; path = CodexAccountHub/MenuBarProfilesView.swift; sourceTree = "<group>"; };
+		F469EF7D033EBCB17D40F65D /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = CodexAccountHub/ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		40DB0E67C56BD0AAC59F0EE3 /* Frameworks */ = {
+		C6996FAC641EC6D605A328BF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A56A6BA9E30A459443327089 /* Cocoa.framework in Frameworks */,
-				C2235B409634BDC714C4BF73 /* CodexAuthCore in Frameworks */,
+				8A8F80DE1D072EBE43B0E3C8 /* Cocoa.framework in Frameworks */,
+				0E025F90711B60366117926F /* CodexAuthCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		75726489E37B5C5D7B872B9A /* Frameworks */ = {
+		CEB80CC69F95AD62AA8C468C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FC70FC29E18AEC487338489 /* Cocoa.framework in Frameworks */,
-				458F6F7A2681941711C25D89 /* CodexAuthCore in Frameworks */,
+				A323E19333148E4637AB86B3 /* Cocoa.framework in Frameworks */,
+				C68F1EF63EA274303EBE6C10 /* CodexAuthCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3F38DF4A16B924C7F518AC7A /* Frameworks */ = {
+		2FA41FE6D48543A3616A4C26 /* CodexAccountHubTests */ = {
 			isa = PBXGroup;
 			children = (
-				74C469FBDE0377CC29E5B0F1 /* OS X */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6560AB9C20B74FD536C6F262 /* CodexAccountHubTests */ = {
-			isa = PBXGroup;
-			children = (
-				6ECC8D64C0B9332C2F16E924 /* AppRuntimeTests.swift */,
-				968E6A017305BDEB60B4CBB4 /* ProjectSmokeTests.swift */,
+				AA04F21085AF89626D372BE4 /* AppRuntimeTests.swift */,
+				7979B4E93BF1D89A953A057A /* ProjectSmokeTests.swift */,
 			);
 			name = CodexAccountHubTests;
 			sourceTree = "<group>";
 		};
-		74C469FBDE0377CC29E5B0F1 /* OS X */ = {
+		4D9F7A7B7134A634F13D0015 /* CodexAccountHub */ = {
 			isa = PBXGroup;
 			children = (
-				C0FC607CE1B078D02CFE6C90 /* Cocoa.framework */,
-			);
-			name = "OS X";
-			sourceTree = "<group>";
-		};
-		E63D8326C02AC0BE1F6FD426 = {
-			isa = PBXGroup;
-			children = (
-				FBB949BC5DDB4BF6930618CB /* Products */,
-				3F38DF4A16B924C7F518AC7A /* Frameworks */,
-				EA5C16839BC17E1E58900EBB /* CodexAccountHub */,
-				6560AB9C20B74FD536C6F262 /* CodexAccountHubTests */,
-			);
-			sourceTree = "<group>";
-		};
-		EA5C16839BC17E1E58900EBB /* CodexAccountHub */ = {
-			isa = PBXGroup;
-			children = (
-				1288532CB073345F2F280C50 /* AppModel.swift */,
-				2A70A840A11C02264189F6F0 /* AppRuntime.swift */,
-				8DAE9B87C4F4EF0D5A2A0938 /* BannerMessageCard.swift */,
-				78B02ED7FEE538AE0975F316 /* CodexAccountHubApp.swift */,
-				41AB907E9829B571184EB2F9 /* ContentView.swift */,
-				5799AEF58C2F6157997F32EF /* MenuBarProfilesView.swift */,
-				9F82D16DDE1EA5573D6581BE /* ProfileDraft.swift */,
-				31D49EADD2F01A51C6203007 /* SettingsView.swift */,
-				B2ECE8DADEBCA8CB27FA4AF8 /* Assets.xcassets */,
+				0078367F97FC58908A63CB6A /* AppModel.swift */,
+				A8E47339A60AC5C781F9D2B9 /* AppRuntime.swift */,
+				D139F48A8BEA1387615758A5 /* BannerMessageCard.swift */,
+				8DF976BD70DF4CE036588660 /* CodexAccountHubApp.swift */,
+				F469EF7D033EBCB17D40F65D /* ContentView.swift */,
+				E6D0A54E8960C64DA91A1154 /* MenuBarProfilesView.swift */,
+				5CD4AA06A046CEFCF774D8A1 /* ProfileDraft.swift */,
+				CB671954D9AC9D5C9DB6DFBA /* SettingsView.swift */,
+				C729BAA6D3533205C0CF06D6 /* Assets.xcassets */,
 			);
 			name = CodexAccountHub;
 			sourceTree = "<group>";
 		};
-		FBB949BC5DDB4BF6930618CB /* Products */ = {
+		BF0AE1035253C5543499D5CD /* OS X */ = {
 			isa = PBXGroup;
 			children = (
-				40FFD35CBA77AD6F6A6CD328 /* CodexAccountHub.app */,
-				0407CB109758154F6F9F91C0 /* CodexAccountHubTests.xctest */,
+				0AF5AB6CAE0339F52DD4E646 /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		CE25580F5F347681BC4081E5 = {
+			isa = PBXGroup;
+			children = (
+				DC13F937357FC451877B82A8 /* Products */,
+				DE2548F54072ED752D04017F /* Frameworks */,
+				4D9F7A7B7134A634F13D0015 /* CodexAccountHub */,
+				2FA41FE6D48543A3616A4C26 /* CodexAccountHubTests */,
+			);
+			sourceTree = "<group>";
+		};
+		DC13F937357FC451877B82A8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				674F89170DE0E513AE30D56F /* CodexAccountHub.app */,
+				90DE826791E5E07919A62ADF /* CodexAccountHubTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DE2548F54072ED752D04017F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF0AE1035253C5543499D5CD /* OS X */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0B7D07DB62E85A0F284C71CC /* CodexAccountHub */ = {
+		2ACD7990FAEB48EF1206C6A5 /* CodexAccountHub */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C6A24B219854E3ACD61499F9 /* Build configuration list for PBXNativeTarget "CodexAccountHub" */;
+			buildConfigurationList = CF93C8E48BF83E4236A7A31C /* Build configuration list for PBXNativeTarget "CodexAccountHub" */;
 			buildPhases = (
-				CDFD2F4127A07B5EE0B89BF3 /* Sources */,
-				75726489E37B5C5D7B872B9A /* Frameworks */,
-				42415B17EE24CCFCFADA4468 /* Resources */,
+				B7F11BE04B77185416D5BF94 /* Sources */,
+				CEB80CC69F95AD62AA8C468C /* Frameworks */,
+				A42B68B855E95528686B3D40 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -150,43 +150,43 @@
 			);
 			name = CodexAccountHub;
 			packageProductDependencies = (
-				58610C47376A5174B3CF8D2B /* CodexAuthCore */,
+				4FA599B42B77C47DA44ADDEA /* CodexAuthCore */,
 			);
 			productName = CodexAccountHub;
-			productReference = 40FFD35CBA77AD6F6A6CD328 /* CodexAccountHub.app */;
+			productReference = 674F89170DE0E513AE30D56F /* CodexAccountHub.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6C4C5E34FF9F0C3190A241A0 /* CodexAccountHubTests */ = {
+		58728673E3888A7AC049C030 /* CodexAccountHubTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1402175F1BE44CAE54ECCF5 /* Build configuration list for PBXNativeTarget "CodexAccountHubTests" */;
+			buildConfigurationList = 33F21DC0BB67719CE9C48040 /* Build configuration list for PBXNativeTarget "CodexAccountHubTests" */;
 			buildPhases = (
-				0C76E5C114044D94ADA36096 /* Sources */,
-				40DB0E67C56BD0AAC59F0EE3 /* Frameworks */,
-				376A8F0446D46BACB9C23F01 /* Resources */,
+				D69290AA1725341355957273 /* Sources */,
+				C6996FAC641EC6D605A328BF /* Frameworks */,
+				3AF7386052946E3B6A5605E0 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CA7439A83384F88F5BC58450 /* PBXTargetDependency */,
+				E45A68A22A1C71386FED84EB /* PBXTargetDependency */,
 			);
 			name = CodexAccountHubTests;
 			packageProductDependencies = (
-				F1100664B842135C2F1B4DC4 /* CodexAuthCore */,
+				8D58C974406E7D12DC03A950 /* CodexAuthCore */,
 			);
 			productName = CodexAccountHubTests;
-			productReference = 0407CB109758154F6F9F91C0 /* CodexAccountHubTests.xctest */;
+			productReference = 90DE826791E5E07919A62ADF /* CodexAccountHubTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		54BF9CD78868DFCD601DA1F7 /* Project object */ = {
+		52AB940BD8C2ED2590DB23D5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 			};
-			buildConfigurationList = AF927F4289B1FA3469CD7A9F /* Build configuration list for PBXProject "CodexAccountHub" */;
+			buildConfigurationList = 927A2EE425B975D0426878A9 /* Build configuration list for PBXProject "CodexAccountHub" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -194,76 +194,130 @@
 				en,
 				Base,
 			);
-			mainGroup = E63D8326C02AC0BE1F6FD426;
+			mainGroup = CE25580F5F347681BC4081E5;
 			packageReferences = (
-				FBF6C6407DBCF37E6862F512 /* XCLocalSwiftPackageReference "CodexAuthCore" */,
+				0BA858FE53C38A124794967F /* XCLocalSwiftPackageReference "CodexAuthCore" */,
 			);
-			productRefGroup = FBB949BC5DDB4BF6930618CB /* Products */;
+			productRefGroup = DC13F937357FC451877B82A8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0B7D07DB62E85A0F284C71CC /* CodexAccountHub */,
-				6C4C5E34FF9F0C3190A241A0 /* CodexAccountHubTests */,
+				2ACD7990FAEB48EF1206C6A5 /* CodexAccountHub */,
+				58728673E3888A7AC049C030 /* CodexAccountHubTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		376A8F0446D46BACB9C23F01 /* Resources */ = {
+		3AF7386052946E3B6A5605E0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		42415B17EE24CCFCFADA4468 /* Resources */ = {
+		A42B68B855E95528686B3D40 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3DD94EC69CADFA8A763B234 /* Assets.xcassets in Resources */,
+				E2EB7A3E62C18BF05513C99D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0C76E5C114044D94ADA36096 /* Sources */ = {
+		B7F11BE04B77185416D5BF94 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B1703CD1CE43F9A3EA81E9B /* AppRuntimeTests.swift in Sources */,
-				7E885CD28A8317495B38D1A2 /* ProjectSmokeTests.swift in Sources */,
+				A98E755F2F22C10A68F4E991 /* AppModel.swift in Sources */,
+				38327344B0B1D2B963A088B2 /* AppRuntime.swift in Sources */,
+				4B7AC816AD573937A3DBD80D /* BannerMessageCard.swift in Sources */,
+				B90C14B78F628A5495C9B1EA /* CodexAccountHubApp.swift in Sources */,
+				82D4157628A3CA644CEDA48C /* ContentView.swift in Sources */,
+				9437C30B9BB32C16ED52078C /* MenuBarProfilesView.swift in Sources */,
+				3D22974179F46CCB133DFF7F /* ProfileDraft.swift in Sources */,
+				1FBFCC5778CC986BE6D7A335 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CDFD2F4127A07B5EE0B89BF3 /* Sources */ = {
+		D69290AA1725341355957273 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02412C084B66E2A4F66017A4 /* BannerMessageCard.swift in Sources */,
-				16B74550F7C142FDAD3BAAD8 /* AppRuntime.swift in Sources */,
-				7A935196AAB364CFC3686BB2 /* AppModel.swift in Sources */,
-				4062F15AA6563E354D8B2DD9 /* CodexAccountHubApp.swift in Sources */,
-				55682E100FD46FE6F66AB6A2 /* ContentView.swift in Sources */,
-				09D98A7BA32E3788EEA643CD /* MenuBarProfilesView.swift in Sources */,
-				A551DDE1E432AF340F62F5F7 /* ProfileDraft.swift in Sources */,
-				44942EA29BE2A41E88742508 /* SettingsView.swift in Sources */,
+				C50E49239CEBD115D913D879 /* AppRuntimeTests.swift in Sources */,
+				BBB6AB8C3288473925E4A72C /* ProjectSmokeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CA7439A83384F88F5BC58450 /* PBXTargetDependency */ = {
+		E45A68A22A1C71386FED84EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CodexAccountHub;
-			target = 0B7D07DB62E85A0F284C71CC /* CodexAccountHub */;
-			targetProxy = BBDFC81DF1ADEE27E40AA758 /* PBXContainerItemProxy */;
+			target = 2ACD7990FAEB48EF1206C6A5 /* CodexAccountHub */;
+			targetProxy = C31F5974C6B94DE260E93376 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		5E2EFC448924214C6D3E2793 /* Debug */ = {
+		04F43A88CBEC6E1207CC94A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		4A383CB563193C4B940222E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -324,21 +378,25 @@
 			};
 			name = Debug;
 		};
-		742A866AFC428B44CEBBABC2 /* Release */ = {
+		76131F7620E2D385C5581744 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				EXECUTABLE_NAME = CodexAccountHub;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Codex Account Hub";
+				INFOPLIST_KEY_CFBundleShortVersionString = "$(MARKETING_VERSION)";
+				INFOPLIST_KEY_CFBundleVersion = "$(CURRENT_PROJECT_VERSION)";
 				INFOPLIST_KEY_LSMinimumSystemVersion = 14.0;
 				INFOPLIST_KEY_LSUIElement = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -353,7 +411,7 @@
 			};
 			name = Release;
 		};
-		AE79DB5FA0F669E677F6E364 /* Debug */ = {
+		C518C18AA1979F51EC9DE973 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -371,7 +429,7 @@
 			};
 			name = Debug;
 		};
-		E9D72A74E7E36C81828139E1 /* Release */ = {
+		D85EE894B22475BAF8C75FA7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -389,7 +447,7 @@
 			};
 			name = Release;
 		};
-		EF10F271DEB08C3DF1110DF0 /* Debug */ = {
+		EA5CF350EFA24FD0D73A53D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -404,6 +462,8 @@
 				EXECUTABLE_NAME = CodexAccountHub;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Codex Account Hub";
+				INFOPLIST_KEY_CFBundleShortVersionString = "$(MARKETING_VERSION)";
+				INFOPLIST_KEY_CFBundleVersion = "$(CURRENT_PROJECT_VERSION)";
 				INFOPLIST_KEY_LSMinimumSystemVersion = 14.0;
 				INFOPLIST_KEY_LSUIElement = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -417,87 +477,33 @@
 				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
-		};
-		F196C158219563BB817E3F41 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AF927F4289B1FA3469CD7A9F /* Build configuration list for PBXProject "CodexAccountHub" */ = {
+		33F21DC0BB67719CE9C48040 /* Build configuration list for PBXNativeTarget "CodexAccountHubTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5E2EFC448924214C6D3E2793 /* Debug */,
-				F196C158219563BB817E3F41 /* Release */,
+				D85EE894B22475BAF8C75FA7 /* Release */,
+				C518C18AA1979F51EC9DE973 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1402175F1BE44CAE54ECCF5 /* Build configuration list for PBXNativeTarget "CodexAccountHubTests" */ = {
+		927A2EE425B975D0426878A9 /* Build configuration list for PBXProject "CodexAccountHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E9D72A74E7E36C81828139E1 /* Release */,
-				AE79DB5FA0F669E677F6E364 /* Debug */,
+				4A383CB563193C4B940222E3 /* Debug */,
+				04F43A88CBEC6E1207CC94A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C6A24B219854E3ACD61499F9 /* Build configuration list for PBXNativeTarget "CodexAccountHub" */ = {
+		CF93C8E48BF83E4236A7A31C /* Build configuration list for PBXNativeTarget "CodexAccountHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				742A866AFC428B44CEBBABC2 /* Release */,
-				EF10F271DEB08C3DF1110DF0 /* Debug */,
+				76131F7620E2D385C5581744 /* Release */,
+				EA5CF350EFA24FD0D73A53D3 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -505,24 +511,24 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		FBF6C6407DBCF37E6862F512 /* XCLocalSwiftPackageReference "CodexAuthCore" */ = {
+		0BA858FE53C38A124794967F /* XCLocalSwiftPackageReference "CodexAuthCore" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/CodexAuthCore;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		58610C47376A5174B3CF8D2B /* CodexAuthCore */ = {
+		4FA599B42B77C47DA44ADDEA /* CodexAuthCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FBF6C6407DBCF37E6862F512 /* XCLocalSwiftPackageReference "CodexAuthCore" */;
+			package = 0BA858FE53C38A124794967F /* XCLocalSwiftPackageReference "CodexAuthCore" */;
 			productName = CodexAuthCore;
 		};
-		F1100664B842135C2F1B4DC4 /* CodexAuthCore */ = {
+		8D58C974406E7D12DC03A950 /* CodexAuthCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FBF6C6407DBCF37E6862F512 /* XCLocalSwiftPackageReference "CodexAuthCore" */;
+			package = 0BA858FE53C38A124794967F /* XCLocalSwiftPackageReference "CodexAuthCore" */;
 			productName = CodexAuthCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 54BF9CD78868DFCD601DA1F7 /* Project object */;
+	rootObject = 52AB940BD8C2ED2590DB23D5 /* Project object */;
 }

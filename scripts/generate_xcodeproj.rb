@@ -54,25 +54,55 @@ end
 add_package_dependency(project, app_target, local_package, 'CodexAuthCore')
 add_package_dependency(project, test_target, local_package, 'CodexAuthCore')
 
+common_app_settings = {
+  'SWIFT_VERSION' => '6.0',
+  'PRODUCT_BUNDLE_IDENTIFIER' => 'dev.codex-account-hub',
+  'PRODUCT_NAME' => 'CodexAccountHub',
+  'PRODUCT_MODULE_NAME' => 'CodexAccountHub',
+  'EXECUTABLE_NAME' => 'CodexAccountHub',
+  'GENERATE_INFOPLIST_FILE' => 'YES',
+  'INFOPLIST_KEY_CFBundleDisplayName' => 'Codex Account Hub',
+  'INFOPLIST_KEY_CFBundleShortVersionString' => '$(MARKETING_VERSION)',
+  'INFOPLIST_KEY_CFBundleVersion' => '$(CURRENT_PROJECT_VERSION)',
+  'INFOPLIST_KEY_LSMinimumSystemVersion' => '14.0',
+  'INFOPLIST_KEY_LSUIElement' => 'YES',
+  'MACOSX_DEPLOYMENT_TARGET' => '14.0',
+  'ENABLE_APP_SANDBOX' => 'NO',
+  'LD_RUNPATH_SEARCH_PATHS' => ['$(inherited)', '@executable_path/../Frameworks'],
+  'CURRENT_PROJECT_VERSION' => '1',
+  'MARKETING_VERSION' => '0.1.0',
+  'SWIFT_EMIT_LOC_STRINGS' => 'NO',
+  'CLANG_ENABLE_MODULES' => 'YES'
+}
+
+debug_app_settings = {
+  'CODE_SIGNING_ALLOWED' => 'NO',
+  'CODE_SIGNING_REQUIRED' => 'NO',
+  'ENABLE_HARDENED_RUNTIME' => 'NO'
+}
+
+release_app_settings = {
+  'CODE_SIGN_STYLE' => 'Manual',
+  'CODE_SIGNING_ALLOWED' => 'YES',
+  'CODE_SIGNING_REQUIRED' => 'YES',
+  'CODE_SIGN_IDENTITY' => 'Developer ID Application',
+  'ENABLE_HARDENED_RUNTIME' => 'YES'
+}
+
 app_target.build_configurations.each do |config|
-  config.build_settings['SWIFT_VERSION'] = '6.0'
-  config.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = 'dev.codex-account-hub'
-  config.build_settings['PRODUCT_NAME'] = 'CodexAccountHub'
-  config.build_settings['PRODUCT_MODULE_NAME'] = 'CodexAccountHub'
-  config.build_settings['EXECUTABLE_NAME'] = 'CodexAccountHub'
-  config.build_settings['GENERATE_INFOPLIST_FILE'] = 'YES'
-  config.build_settings['INFOPLIST_KEY_CFBundleDisplayName'] = 'Codex Account Hub'
-  config.build_settings['INFOPLIST_KEY_LSMinimumSystemVersion'] = '14.0'
-  config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '14.0'
-  config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
-  config.build_settings['CODE_SIGNING_REQUIRED'] = 'NO'
-  config.build_settings['ENABLE_APP_SANDBOX'] = 'NO'
-  config.build_settings['ENABLE_HARDENED_RUNTIME'] = 'NO'
-  config.build_settings['LD_RUNPATH_SEARCH_PATHS'] = ['$(inherited)', '@executable_path/../Frameworks']
-  config.build_settings['CURRENT_PROJECT_VERSION'] = '1'
-  config.build_settings['MARKETING_VERSION'] = '0.1.0'
-  config.build_settings['SWIFT_EMIT_LOC_STRINGS'] = 'NO'
-  config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+  common_app_settings.each do |key, value|
+    config.build_settings[key] = value
+  end
+
+  config_specific_settings = if config.name == 'Release'
+    release_app_settings
+  else
+    debug_app_settings
+  end
+
+  config_specific_settings.each do |key, value|
+    config.build_settings[key] = value
+  end
 end
 
 test_target.build_configurations.each do |config|

@@ -53,6 +53,7 @@ struct SMAppServiceController: LaunchAtLoginControlling {
     }
 }
 
+@MainActor
 protocol AppActivating {
     func activate()
 }
@@ -63,6 +64,7 @@ struct NSApplicationActivator: AppActivating {
     }
 }
 
+@MainActor
 protocol AppTerminating {
     func terminate()
 }
