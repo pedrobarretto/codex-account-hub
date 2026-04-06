@@ -1,0 +1,514 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		09D98A7BA32E3788EEA643CD /* MenuBarProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799AEF58C2F6157997F32EF /* MenuBarProfilesView.swift */; };
+		4062F15AA6563E354D8B2DD9 /* CodexAccountHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B02ED7FEE538AE0975F316 /* CodexAccountHubApp.swift */; };
+		44942EA29BE2A41E88742508 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D49EADD2F01A51C6203007 /* SettingsView.swift */; };
+		458F6F7A2681941711C25D89 /* CodexAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 58610C47376A5174B3CF8D2B /* CodexAuthCore */; };
+		55682E100FD46FE6F66AB6A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AB907E9829B571184EB2F9 /* ContentView.swift */; };
+		6FC70FC29E18AEC487338489 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0FC607CE1B078D02CFE6C90 /* Cocoa.framework */; };
+		7A935196AAB364CFC3686BB2 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1288532CB073345F2F280C50 /* AppModel.swift */; };
+		7E885CD28A8317495B38D1A2 /* ProjectSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968E6A017305BDEB60B4CBB4 /* ProjectSmokeTests.swift */; };
+		A551DDE1E432AF340F62F5F7 /* ProfileDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82D16DDE1EA5573D6581BE /* ProfileDraft.swift */; };
+		A56A6BA9E30A459443327089 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0FC607CE1B078D02CFE6C90 /* Cocoa.framework */; };
+		C2235B409634BDC714C4BF73 /* CodexAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = F1100664B842135C2F1B4DC4 /* CodexAuthCore */; };
+		C3DD94EC69CADFA8A763B234 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2ECE8DADEBCA8CB27FA4AF8 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BBDFC81DF1ADEE27E40AA758 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 54BF9CD78868DFCD601DA1F7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B7D07DB62E85A0F284C71CC;
+			remoteInfo = CodexAccountHub;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0407CB109758154F6F9F91C0 /* CodexAccountHubTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodexAccountHubTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1288532CB073345F2F280C50 /* AppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppModel.swift; path = CodexAccountHub/AppModel.swift; sourceTree = "<group>"; };
+		31D49EADD2F01A51C6203007 /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = CodexAccountHub/SettingsView.swift; sourceTree = "<group>"; };
+		40FFD35CBA77AD6F6A6CD328 /* CodexAccountHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodexAccountHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41AB907E9829B571184EB2F9 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = CodexAccountHub/ContentView.swift; sourceTree = "<group>"; };
+		5799AEF58C2F6157997F32EF /* MenuBarProfilesView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MenuBarProfilesView.swift; path = CodexAccountHub/MenuBarProfilesView.swift; sourceTree = "<group>"; };
+		78B02ED7FEE538AE0975F316 /* CodexAccountHubApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodexAccountHubApp.swift; path = CodexAccountHub/CodexAccountHubApp.swift; sourceTree = "<group>"; };
+		968E6A017305BDEB60B4CBB4 /* ProjectSmokeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProjectSmokeTests.swift; path = CodexAccountHubTests/ProjectSmokeTests.swift; sourceTree = "<group>"; };
+		9F82D16DDE1EA5573D6581BE /* ProfileDraft.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProfileDraft.swift; path = CodexAccountHub/ProfileDraft.swift; sourceTree = "<group>"; };
+		B2ECE8DADEBCA8CB27FA4AF8 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = CodexAccountHub/Assets.xcassets; sourceTree = "<group>"; };
+		C0FC607CE1B078D02CFE6C90 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		40DB0E67C56BD0AAC59F0EE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A56A6BA9E30A459443327089 /* Cocoa.framework in Frameworks */,
+				C2235B409634BDC714C4BF73 /* CodexAuthCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75726489E37B5C5D7B872B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FC70FC29E18AEC487338489 /* Cocoa.framework in Frameworks */,
+				458F6F7A2681941711C25D89 /* CodexAuthCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3F38DF4A16B924C7F518AC7A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				74C469FBDE0377CC29E5B0F1 /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6560AB9C20B74FD536C6F262 /* CodexAccountHubTests */ = {
+			isa = PBXGroup;
+			children = (
+				968E6A017305BDEB60B4CBB4 /* ProjectSmokeTests.swift */,
+			);
+			name = CodexAccountHubTests;
+			sourceTree = "<group>";
+		};
+		74C469FBDE0377CC29E5B0F1 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				C0FC607CE1B078D02CFE6C90 /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		E63D8326C02AC0BE1F6FD426 = {
+			isa = PBXGroup;
+			children = (
+				FBB949BC5DDB4BF6930618CB /* Products */,
+				3F38DF4A16B924C7F518AC7A /* Frameworks */,
+				EA5C16839BC17E1E58900EBB /* CodexAccountHub */,
+				6560AB9C20B74FD536C6F262 /* CodexAccountHubTests */,
+			);
+			sourceTree = "<group>";
+		};
+		EA5C16839BC17E1E58900EBB /* CodexAccountHub */ = {
+			isa = PBXGroup;
+			children = (
+				1288532CB073345F2F280C50 /* AppModel.swift */,
+				78B02ED7FEE538AE0975F316 /* CodexAccountHubApp.swift */,
+				41AB907E9829B571184EB2F9 /* ContentView.swift */,
+				5799AEF58C2F6157997F32EF /* MenuBarProfilesView.swift */,
+				9F82D16DDE1EA5573D6581BE /* ProfileDraft.swift */,
+				31D49EADD2F01A51C6203007 /* SettingsView.swift */,
+				B2ECE8DADEBCA8CB27FA4AF8 /* Assets.xcassets */,
+			);
+			name = CodexAccountHub;
+			sourceTree = "<group>";
+		};
+		FBB949BC5DDB4BF6930618CB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				40FFD35CBA77AD6F6A6CD328 /* CodexAccountHub.app */,
+				0407CB109758154F6F9F91C0 /* CodexAccountHubTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0B7D07DB62E85A0F284C71CC /* CodexAccountHub */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6A24B219854E3ACD61499F9 /* Build configuration list for PBXNativeTarget "CodexAccountHub" */;
+			buildPhases = (
+				CDFD2F4127A07B5EE0B89BF3 /* Sources */,
+				75726489E37B5C5D7B872B9A /* Frameworks */,
+				42415B17EE24CCFCFADA4468 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CodexAccountHub;
+			packageProductDependencies = (
+				58610C47376A5174B3CF8D2B /* CodexAuthCore */,
+			);
+			productName = CodexAccountHub;
+			productReference = 40FFD35CBA77AD6F6A6CD328 /* CodexAccountHub.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6C4C5E34FF9F0C3190A241A0 /* CodexAccountHubTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1402175F1BE44CAE54ECCF5 /* Build configuration list for PBXNativeTarget "CodexAccountHubTests" */;
+			buildPhases = (
+				0C76E5C114044D94ADA36096 /* Sources */,
+				40DB0E67C56BD0AAC59F0EE3 /* Frameworks */,
+				376A8F0446D46BACB9C23F01 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CA7439A83384F88F5BC58450 /* PBXTargetDependency */,
+			);
+			name = CodexAccountHubTests;
+			packageProductDependencies = (
+				F1100664B842135C2F1B4DC4 /* CodexAuthCore */,
+			);
+			productName = CodexAccountHubTests;
+			productReference = 0407CB109758154F6F9F91C0 /* CodexAccountHubTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		54BF9CD78868DFCD601DA1F7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 2620;
+			};
+			buildConfigurationList = AF927F4289B1FA3469CD7A9F /* Build configuration list for PBXProject "CodexAccountHub" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E63D8326C02AC0BE1F6FD426;
+			packageReferences = (
+				FBF6C6407DBCF37E6862F512 /* XCLocalSwiftPackageReference "CodexAuthCore" */,
+			);
+			productRefGroup = FBB949BC5DDB4BF6930618CB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0B7D07DB62E85A0F284C71CC /* CodexAccountHub */,
+				6C4C5E34FF9F0C3190A241A0 /* CodexAccountHubTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		376A8F0446D46BACB9C23F01 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42415B17EE24CCFCFADA4468 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3DD94EC69CADFA8A763B234 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0C76E5C114044D94ADA36096 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E885CD28A8317495B38D1A2 /* ProjectSmokeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDFD2F4127A07B5EE0B89BF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A935196AAB364CFC3686BB2 /* AppModel.swift in Sources */,
+				4062F15AA6563E354D8B2DD9 /* CodexAccountHubApp.swift in Sources */,
+				55682E100FD46FE6F66AB6A2 /* ContentView.swift in Sources */,
+				09D98A7BA32E3788EEA643CD /* MenuBarProfilesView.swift in Sources */,
+				A551DDE1E432AF340F62F5F7 /* ProfileDraft.swift in Sources */,
+				44942EA29BE2A41E88742508 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CA7439A83384F88F5BC58450 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CodexAccountHub;
+			target = 0B7D07DB62E85A0F284C71CC /* CodexAccountHub */;
+			targetProxy = BBDFC81DF1ADEE27E40AA758 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5E2EFC448924214C6D3E2793 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		742A866AFC428B44CEBBABC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				EXECUTABLE_NAME = CodexAccountHub;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Codex Account Hub";
+				INFOPLIST_KEY_LSMinimumSystemVersion = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.codex-account-hub";
+				PRODUCT_MODULE_NAME = CodexAccountHub;
+				PRODUCT_NAME = CodexAccountHub;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		AE79DB5FA0F669E677F6E364 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.codex-account-hub.tests";
+				PRODUCT_NAME = CodexAccountHubTests;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodexAccountHub.app/Contents/MacOS/CodexAccountHub";
+			};
+			name = Debug;
+		};
+		E9D72A74E7E36C81828139E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.codex-account-hub.tests";
+				PRODUCT_NAME = CodexAccountHubTests;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodexAccountHub.app/Contents/MacOS/CodexAccountHub";
+			};
+			name = Release;
+		};
+		EF10F271DEB08C3DF1110DF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				EXECUTABLE_NAME = CodexAccountHub;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Codex Account Hub";
+				INFOPLIST_KEY_LSMinimumSystemVersion = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.codex-account-hub";
+				PRODUCT_MODULE_NAME = CodexAccountHub;
+				PRODUCT_NAME = CodexAccountHub;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		F196C158219563BB817E3F41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AF927F4289B1FA3469CD7A9F /* Build configuration list for PBXProject "CodexAccountHub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E2EFC448924214C6D3E2793 /* Debug */,
+				F196C158219563BB817E3F41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C1402175F1BE44CAE54ECCF5 /* Build configuration list for PBXNativeTarget "CodexAccountHubTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9D72A74E7E36C81828139E1 /* Release */,
+				AE79DB5FA0F669E677F6E364 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6A24B219854E3ACD61499F9 /* Build configuration list for PBXNativeTarget "CodexAccountHub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				742A866AFC428B44CEBBABC2 /* Release */,
+				EF10F271DEB08C3DF1110DF0 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		FBF6C6407DBCF37E6862F512 /* XCLocalSwiftPackageReference "CodexAuthCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/CodexAuthCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		58610C47376A5174B3CF8D2B /* CodexAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FBF6C6407DBCF37E6862F512 /* XCLocalSwiftPackageReference "CodexAuthCore" */;
+			productName = CodexAuthCore;
+		};
+		F1100664B842135C2F1B4DC4 /* CodexAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FBF6C6407DBCF37E6862F512 /* XCLocalSwiftPackageReference "CodexAuthCore" */;
+			productName = CodexAuthCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 54BF9CD78868DFCD601DA1F7 /* Project object */;
+}

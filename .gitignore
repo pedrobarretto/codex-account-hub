@@ -1,0 +1,12 @@
+.DS_Store
+.build/
+DerivedData/
+*.xcresult
+**/.build/
+**/.swiftpm/
+**/xcuserdata/
+**/*.xcuserstate
+CodexAccountHub.xcodeproj/project.xcworkspace/
+CodexAccountHub.xcodeproj/xcuserdata/
+Packages/CodexAuthCore/.build/
+Packages/CodexAuthCore/.swiftpm/
