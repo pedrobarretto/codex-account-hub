@@ -1,12 +1,155 @@
 import CodexAuthCore
 import Foundation
 import Observation
+import SwiftUI
+
+enum ThemeMode: String, CaseIterable {
+    case system
+    case light
+    case dark
+
+    var title: String {
+        switch self {
+        case .system:
+            "System"
+        case .light:
+            "Light"
+        case .dark:
+            "Dark"
+        }
+    }
+
+    var preferredColorScheme: ColorScheme? {
+        switch self {
+        case .system:
+            nil
+        case .light:
+            .light
+        case .dark:
+            .dark
+        }
+    }
+}
+
+struct AppTheme {
+    struct BannerColors {
+        let background: Color
+        let symbol: Color
+    }
+
+    struct Palette {
+        let isDark: Bool
+        let windowGradientTop: Color
+        let windowGradientBottom: Color
+        let primaryCardTint: Color
+        let secondaryCardTint: Color
+        let cardHighlight: Color
+        let cardBorder: Color
+        let elevatedInsetBackground: Color
+        let elevatedInsetBorder: Color
+        let rowActiveBackground: Color
+        let rowActiveBorder: Color
+        let rowInactiveBackground: Color
+        let rowInactiveBorder: Color
+        let iconButtonBackground: Color
+        let activeBadgeBackground: Color
+        let activeBadgeForeground: Color
+        let textPrimary: Color
+        let textSecondary: Color
+        let shadow: Color
+
+        var windowBackground: LinearGradient {
+            LinearGradient(
+                colors: [windowGradientTop, windowGradientBottom],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+    }
+
+    static func palette(for colorScheme: ColorScheme) -> Palette {
+        switch colorScheme {
+        case .light:
+            return Palette(
+                isDark: false,
+                windowGradientTop: Color(red: 0.97, green: 0.98, blue: 0.995),
+                windowGradientBottom: Color(red: 0.92, green: 0.95, blue: 0.985),
+                primaryCardTint: Color(red: 0.21, green: 0.41, blue: 0.69),
+                secondaryCardTint: Color(red: 0.43, green: 0.50, blue: 0.63),
+                cardHighlight: Color.white.opacity(0.36),
+                cardBorder: Color.white.opacity(0.48),
+                elevatedInsetBackground: Color.white.opacity(0.54),
+                elevatedInsetBorder: Color.white.opacity(0.28),
+                rowActiveBackground: Color(red: 0.14, green: 0.38, blue: 0.72).opacity(0.16),
+                rowActiveBorder: Color(red: 0.14, green: 0.38, blue: 0.72).opacity(0.28),
+                rowInactiveBackground: Color.white.opacity(0.50),
+                rowInactiveBorder: Color.white.opacity(0.30),
+                iconButtonBackground: Color.white.opacity(0.70),
+                activeBadgeBackground: Color(red: 0.14, green: 0.38, blue: 0.72).opacity(0.15),
+                activeBadgeForeground: Color(red: 0.10, green: 0.30, blue: 0.62),
+                textPrimary: Color(red: 0.14, green: 0.18, blue: 0.24),
+                textSecondary: Color(red: 0.35, green: 0.41, blue: 0.49),
+                shadow: Color.black.opacity(0.07)
+            )
+        case .dark:
+            return Palette(
+                isDark: true,
+                windowGradientTop: Color(red: 0.07, green: 0.10, blue: 0.16),
+                windowGradientBottom: Color(red: 0.11, green: 0.15, blue: 0.22),
+                primaryCardTint: Color(red: 0.22, green: 0.42, blue: 0.71),
+                secondaryCardTint: Color(red: 0.19, green: 0.27, blue: 0.41),
+                cardHighlight: Color.white.opacity(0.08),
+                cardBorder: Color.white.opacity(0.18),
+                elevatedInsetBackground: Color.white.opacity(0.08),
+                elevatedInsetBorder: Color.white.opacity(0.12),
+                rowActiveBackground: Color(red: 0.22, green: 0.46, blue: 0.86).opacity(0.24),
+                rowActiveBorder: Color(red: 0.38, green: 0.62, blue: 0.96).opacity(0.38),
+                rowInactiveBackground: Color.white.opacity(0.08),
+                rowInactiveBorder: Color.white.opacity(0.12),
+                iconButtonBackground: Color.white.opacity(0.10),
+                activeBadgeBackground: Color(red: 0.23, green: 0.47, blue: 0.88).opacity(0.26),
+                activeBadgeForeground: Color(red: 0.78, green: 0.87, blue: 1.00),
+                textPrimary: Color(red: 0.92, green: 0.95, blue: 0.99),
+                textSecondary: Color(red: 0.63, green: 0.70, blue: 0.79),
+                shadow: Color.black.opacity(0.30)
+            )
+        @unknown default:
+            return palette(for: .light)
+        }
+    }
+
+    static func bannerColors(for kind: BannerKind, in palette: Palette) -> BannerColors {
+        switch kind {
+        case .info:
+            return BannerColors(
+                background: palette.activeBadgeBackground,
+                symbol: palette.activeBadgeForeground
+            )
+        case .success:
+            return BannerColors(
+                background: Color.green.opacity(palette.isDark ? 0.22 : 0.12),
+                symbol: palette.isDark ? Color(red: 0.63, green: 0.92, blue: 0.72) : .green
+            )
+        case .warning:
+            return BannerColors(
+                background: Color.orange.opacity(palette.isDark ? 0.22 : 0.14),
+                symbol: palette.isDark ? Color(red: 1.0, green: 0.82, blue: 0.47) : .orange
+            )
+        case .error:
+            return BannerColors(
+                background: Color.red.opacity(palette.isDark ? 0.22 : 0.14),
+                symbol: palette.isDark ? Color(red: 1.0, green: 0.70, blue: 0.73) : .red
+            )
+        }
+    }
+}
 
 @MainActor
 @Observable
 final class AppModel {
     private enum DefaultsKey {
         static let codexHomeOverridePath = "codexHomeOverridePath"
+        static let themeMode = "themeMode"
     }
 
     private let metadataStore: ProfileMetadataStoring
@@ -28,6 +171,11 @@ final class AppModel {
     var pendingForceSwitchProfileID: UUID?
     var pendingForceSwitchProcesses: [RunningProcess] = []
     var codexHomeOverridePath: String
+    var themeMode: ThemeMode {
+        didSet {
+            userDefaults.set(themeMode.rawValue, forKey: DefaultsKey.themeMode)
+        }
+    }
 
     init(
         metadataStore: ProfileMetadataStoring? = nil,
@@ -49,6 +197,7 @@ final class AppModel {
         self.userDefaults = userDefaults
         self.clock = clock
         self.codexHomeOverridePath = userDefaults.string(forKey: DefaultsKey.codexHomeOverridePath) ?? ""
+        self.themeMode = ThemeMode(rawValue: userDefaults.string(forKey: DefaultsKey.themeMode) ?? "") ?? .system
 
         let initialLocation = resolvedAuthPathResolver.resolveAuthLocation(overrideCodexHome: Self.overrideURL(from: userDefaults.string(forKey: DefaultsKey.codexHomeOverridePath) ?? ""))
         self.resolvedLocation = initialLocation
@@ -93,6 +242,10 @@ final class AppModel {
 
     var currentOverrideURL: URL? {
         Self.overrideURL(from: codexHomeOverridePath)
+    }
+
+    var preferredColorScheme: ColorScheme? {
+        themeMode.preferredColorScheme
     }
 
     var draftValidation: DraftValidation {

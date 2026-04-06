@@ -6,6 +6,7 @@ import UniformTypeIdentifiers
 struct ContentView: View {
     @Bindable var model: AppModel
     @Bindable var runtime: AppRuntime
+    @Environment(\.colorScheme) private var colorScheme
     @State private var editedProfileID: UUID?
     @State private var isShowingRenameSheet = false
     @State private var renameDisplayName = ""
@@ -93,36 +94,42 @@ struct ContentView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Codex Account Hub")
                 .font(.title2.weight(.semibold))
+                .foregroundStyle(theme.textPrimary)
 
             Text("Import a Codex `auth.json`, keep saved profiles here, and switch accounts from the menu bar whenever you need them.")
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(theme.textSecondary)
 
             Text("Closing this window keeps Codex Account Hub running in the menu bar. Use the menu bar icon to reopen the app, change settings, or quit.")
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(theme.textSecondary)
 
             VStack(alignment: .leading, spacing: 6) {
                 Text("Where to find your Codex profile on macOS")
                     .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(theme.textPrimary)
 
                 Text(displayedAuthPath)
                     .font(.system(.caption, design: .monospaced))
                     .textSelection(.enabled)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(theme.textPrimary)
 
                 Text("In Finder, press Shift-Command-G and paste this path.")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(theme.textSecondary)
             }
             .padding(12)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.white.opacity(0.58))
+            .background(theme.elevatedInsetBackground)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .strokeBorder(theme.elevatedInsetBorder, lineWidth: 1)
+            }
         }
         .padding(20)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(cardBackground(tint: Color(red: 0.13, green: 0.33, blue: 0.57)))
+        .background(cardBackground(tint: theme.primaryCardTint))
     }
 
     private var actionsCard: some View {
@@ -152,14 +159,15 @@ struct ContentView: View {
             HStack {
                 Text("Profiles")
                     .font(.headline)
+                    .foregroundStyle(theme.textPrimary)
                 Spacer()
                 if let activeProfileName = model.activeProfileName {
                     Text(activeProfileName)
                         .font(.caption.weight(.semibold))
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
-                        .background(.green.opacity(0.14))
-                        .foregroundStyle(.green)
+                        .background(theme.activeBadgeBackground)
+                        .foregroundStyle(theme.activeBadgeForeground)
                         .clipShape(Capsule())
                 }
             }
@@ -188,7 +196,7 @@ struct ContentView: View {
         }
         .padding(20)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(cardBackground(tint: Color(red: 0.19, green: 0.21, blue: 0.24)))
+        .background(cardBackground(tint: theme.secondaryCardTint))
     }
 
     private var displayedAuthPath: String {
@@ -256,15 +264,7 @@ struct ContentView: View {
     }
 
     private var windowBackground: some View {
-        LinearGradient(
-            colors: [
-                Color(red: 0.96, green: 0.97, blue: 0.98),
-                Color(red: 0.92, green: 0.94, blue: 0.97)
-            ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-        .ignoresSafeArea()
+        theme.windowBackground.ignoresSafeArea()
     }
 
     private func cardBackground(tint: Color) -> some View {
@@ -276,7 +276,7 @@ struct ContentView: View {
                         LinearGradient(
                             colors: [
                                 tint.opacity(0.12),
-                                .white.opacity(0.34)
+                                theme.cardHighlight
                             ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
@@ -285,9 +285,13 @@ struct ContentView: View {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
-                    .strokeBorder(.white.opacity(0.4), lineWidth: 1)
+                    .strokeBorder(theme.cardBorder, lineWidth: 1)
             }
-            .shadow(color: .black.opacity(0.05), radius: 16, x: 0, y: 10)
+            .shadow(color: theme.shadow, radius: 16, x: 0, y: 10)
+    }
+
+    private var theme: AppTheme.Palette {
+        AppTheme.palette(for: colorScheme)
     }
 
     private func openJSONPanel() -> URL? {
@@ -306,6 +310,7 @@ private struct ProfileListRow: View {
     let onActivate: () -> Void
     let onRename: () -> Void
     let onDelete: () -> Void
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         HStack(spacing: 12) {
@@ -313,11 +318,11 @@ private struct ProfileListRow: View {
                 HStack(spacing: 12) {
                     Image(systemName: isActive ? "checkmark.circle.fill" : "person.crop.circle")
                         .font(.system(size: 18, weight: .semibold))
-                        .foregroundStyle(isActive ? .green : .secondary)
+                        .foregroundStyle(isActive ? theme.activeBadgeForeground : theme.textSecondary)
 
                     Text(profile.displayName)
                         .font(.body.weight(.medium))
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(theme.textPrimary)
                         .lineLimit(1)
 
                     Spacer()
@@ -327,8 +332,8 @@ private struct ProfileListRow: View {
                             .font(.caption.weight(.semibold))
                             .padding(.horizontal, 10)
                             .padding(.vertical, 5)
-                            .background(.green.opacity(0.14))
-                            .foregroundStyle(.green)
+                            .background(theme.activeBadgeBackground)
+                            .foregroundStyle(theme.activeBadgeForeground)
                             .clipShape(Capsule())
                     }
                 }
@@ -342,9 +347,9 @@ private struct ProfileListRow: View {
             } label: {
                 Image(systemName: "ellipsis.circle")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(theme.textSecondary)
                     .frame(width: 28, height: 28)
-                    .background(.white.opacity(0.68))
+                    .background(theme.iconButtonBackground)
                     .clipShape(Circle())
             }
             .menuStyle(.borderlessButton)
@@ -356,12 +361,16 @@ private struct ProfileListRow: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(isActive ? .green.opacity(0.1) : .white.opacity(0.5))
+                .fill(isActive ? theme.rowActiveBackground : theme.rowInactiveBackground)
         )
         .overlay {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(isActive ? .green.opacity(0.22) : .white.opacity(0.3), lineWidth: 1)
+                .strokeBorder(isActive ? theme.rowActiveBorder : theme.rowInactiveBorder, lineWidth: 1)
         }
+    }
+
+    private var theme: AppTheme.Palette {
+        AppTheme.palette(for: colorScheme)
     }
 }
 

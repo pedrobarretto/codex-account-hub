@@ -3,51 +3,38 @@ import SwiftUI
 struct BannerMessageCard: View {
     let banner: BannerMessage
     let onDismiss: () -> Void
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: symbolName(for: banner.kind))
-                .foregroundStyle(symbolColor(for: banner.kind))
+                .foregroundStyle(colors.symbol)
 
             Text(banner.text)
                 .font(.subheadline)
-                .foregroundStyle(.primary)
+                .foregroundStyle(theme.textPrimary)
 
             Spacer()
 
             Button("Dismiss", action: onDismiss)
                 .buttonStyle(.plain)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(theme.textSecondary)
         }
         .padding(14)
-        .background(backgroundColor(for: banner.kind))
+        .background(colors.background)
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-    }
-
-    private func backgroundColor(for kind: BannerKind) -> Color {
-        switch kind {
-        case .info:
-            return .blue.opacity(0.12)
-        case .success:
-            return .green.opacity(0.12)
-        case .warning:
-            return .orange.opacity(0.12)
-        case .error:
-            return .red.opacity(0.12)
+        .overlay {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(theme.elevatedInsetBorder, lineWidth: 1)
         }
     }
 
-    private func symbolColor(for kind: BannerKind) -> Color {
-        switch kind {
-        case .info:
-            return .blue
-        case .success:
-            return .green
-        case .warning:
-            return .orange
-        case .error:
-            return .red
-        }
+    private var theme: AppTheme.Palette {
+        AppTheme.palette(for: colorScheme)
+    }
+
+    private var colors: AppTheme.BannerColors {
+        AppTheme.bannerColors(for: banner.kind, in: theme)
     }
 
     private func symbolName(for kind: BannerKind) -> String {

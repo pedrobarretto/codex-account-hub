@@ -3,6 +3,57 @@ import CodexAuthCore
 import XCTest
 
 final class ProjectSmokeTests: XCTestCase {
+    @MainActor
+    func testThemeModeDefaultsToSystemWhenUnset() throws {
+        let harness = try makeHarness(profiles: [])
+        defer { harness.cleanup() }
+
+        XCTAssertEqual(harness.model.themeMode, .system)
+        XCTAssertNil(harness.model.preferredColorScheme)
+    }
+
+    @MainActor
+    func testThemeModeLoadsPersistedLightAndDarkValues() throws {
+        let lightHarness = try makeHarness(profiles: [], storedThemeModeRawValue: "light")
+        defer { lightHarness.cleanup() }
+        XCTAssertEqual(lightHarness.model.themeMode, .light)
+        XCTAssertEqual(lightHarness.model.preferredColorScheme, .light)
+
+        let darkHarness = try makeHarness(profiles: [], storedThemeModeRawValue: "dark")
+        defer { darkHarness.cleanup() }
+        XCTAssertEqual(darkHarness.model.themeMode, .dark)
+        XCTAssertEqual(darkHarness.model.preferredColorScheme, .dark)
+    }
+
+    @MainActor
+    func testThemeModeFallsBackToSystemForInvalidPersistedValue() throws {
+        let harness = try makeHarness(profiles: [], storedThemeModeRawValue: "midnight-blue")
+        defer { harness.cleanup() }
+
+        XCTAssertEqual(harness.model.themeMode, .system)
+        XCTAssertNil(harness.model.preferredColorScheme)
+    }
+
+    @MainActor
+    func testSettingThemeModePersistsAndUpdatesPreferredColorScheme() throws {
+        let harness = try makeHarness(profiles: [])
+        defer { harness.cleanup() }
+
+        harness.model.themeMode = .dark
+        XCTAssertEqual(harness.model.preferredColorScheme, .dark)
+        XCTAssertEqual(
+            UserDefaults(suiteName: harness.userDefaultsSuiteName)?.string(forKey: "themeMode"),
+            "dark"
+        )
+
+        harness.model.themeMode = .system
+        XCTAssertNil(harness.model.preferredColorScheme)
+        XCTAssertEqual(
+            UserDefaults(suiteName: harness.userDefaultsSuiteName)?.string(forKey: "themeMode"),
+            "system"
+        )
+    }
+
     func testAuthPayloadParsesWithinProjectTestTarget() throws {
         let payload = try AuthPayload(jsonString: #"{"auth_mode":"oauth","tokens":{"access_token":"abc"}}"#)
         XCTAssertEqual(payload.authMode, "oauth")
@@ -138,7 +189,8 @@ private struct StaticProcessInspector: ProcessInspecting {
 @MainActor
 private func makeHarness(
     profiles: [(ProfileMetadata, AuthPayload)],
-    livePayload: AuthPayload? = nil
+    livePayload: AuthPayload? = nil,
+    storedThemeModeRawValue: String? = nil
 ) throws -> AppModelTestHarness {
     let fileManager = FileManager.default
     let rootDirectoryURL = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
@@ -170,6 +222,9 @@ private func makeHarness(
 
     let userDefaultsSuiteName = "ProjectSmokeTests.\(UUID().uuidString)"
     let userDefaults = try XCTUnwrap(UserDefaults(suiteName: userDefaultsSuiteName))
+    if let storedThemeModeRawValue {
+        userDefaults.set(storedThemeModeRawValue, forKey: "themeMode")
+    }
     let model = AppModel(
         metadataStore: metadataStore,
         secretsStore: secretsStore,

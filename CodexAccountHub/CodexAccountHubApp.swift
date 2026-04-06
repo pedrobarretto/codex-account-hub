@@ -13,6 +13,7 @@ struct CodexAccountHubApp: App {
     var body: some Scene {
         Window("Codex Account Hub", id: AppSceneID.mainWindow) {
             ContentView(model: model, runtime: runtime)
+                .preferredColorScheme(model.preferredColorScheme)
         }
         .defaultSize(width: 460, height: 620)
         .windowStyle(.titleBar)
@@ -27,6 +28,7 @@ struct CodexAccountHubApp: App {
 
         Settings {
             SettingsView(model: model, runtime: runtime)
+                .preferredColorScheme(model.preferredColorScheme)
         }
     }
 }
