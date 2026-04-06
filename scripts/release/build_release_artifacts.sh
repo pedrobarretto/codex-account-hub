@@ -20,6 +20,14 @@ KEYCHAIN_PASSWORD="${KEYCHAIN_PASSWORD:-ci-temporary-password}"
 CERTIFICATE_PATH="$WORK_DIR/developer-id.p12"
 EXPORT_OPTIONS_PLIST="$WORK_DIR/ExportOptions.plist"
 NOTARY_KEY_PATH="$WORK_DIR/AuthKey_${APPLE_NOTARY_KEY_ID:-unknown}.p8"
+NOTARY_WAIT_TIMEOUT="${APPLE_NOTARY_WAIT_TIMEOUT:-15m}"
+NOTARY_SUBMISSION_JSON="$WORK_DIR/notary-submission.json"
+NOTARY_STATUS_JSON="$WORK_DIR/notary-status.json"
+NOTARY_LOG_PATH="$WORK_DIR/notary-log.json"
+
+extract_json_field() {
+  /usr/bin/plutil -extract "$1" raw -o - "$2" 2>/dev/null | tr -d '\n'
+}
 
 require_env() {
   local name="$1"
@@ -178,7 +186,60 @@ xcrun notarytool submit \
   --key "$NOTARY_KEY_PATH" \
   --key-id "$APPLE_NOTARY_KEY_ID" \
   --issuer "$APPLE_NOTARY_ISSUER_ID" \
-  --wait
+  --output-format json > "$NOTARY_SUBMISSION_JSON"
+
+NOTARY_SUBMISSION_ID="$(extract_json_field id "$NOTARY_SUBMISSION_JSON")"
+
+if [[ -z "$NOTARY_SUBMISSION_ID" ]]; then
+  echo "Unable to determine Apple notarization submission ID." >&2
+  cat "$NOTARY_SUBMISSION_JSON" >&2
+  exit 1
+fi
+
+echo "Submitted Apple notarization request:"
+echo "  id: $NOTARY_SUBMISSION_ID"
+echo "  timeout: $NOTARY_WAIT_TIMEOUT"
+
+set +e
+xcrun notarytool wait \
+  "$NOTARY_SUBMISSION_ID" \
+  --key "$NOTARY_KEY_PATH" \
+  --key-id "$APPLE_NOTARY_KEY_ID" \
+  --issuer "$APPLE_NOTARY_ISSUER_ID" \
+  --timeout "$NOTARY_WAIT_TIMEOUT" \
+  --output-format json > "$NOTARY_STATUS_JSON"
+NOTARY_WAIT_EXIT=$?
+set -e
+
+if [[ $NOTARY_WAIT_EXIT -ne 0 ]]; then
+  echo "Apple notarization did not finish within $NOTARY_WAIT_TIMEOUT." >&2
+  echo "Submission ID: $NOTARY_SUBMISSION_ID" >&2
+  xcrun notarytool info \
+    "$NOTARY_SUBMISSION_ID" \
+    --key "$NOTARY_KEY_PATH" \
+    --key-id "$APPLE_NOTARY_KEY_ID" \
+    --issuer "$APPLE_NOTARY_ISSUER_ID" \
+    --output-format json || true
+  exit $NOTARY_WAIT_EXIT
+fi
+
+NOTARY_STATUS="$(extract_json_field status "$NOTARY_STATUS_JSON")"
+
+if [[ "$NOTARY_STATUS" != "Accepted" ]]; then
+  echo "Apple notarization returned status '${NOTARY_STATUS:-unknown}'." >&2
+  xcrun notarytool log \
+    "$NOTARY_SUBMISSION_ID" \
+    "$NOTARY_LOG_PATH" \
+    --key "$NOTARY_KEY_PATH" \
+    --key-id "$APPLE_NOTARY_KEY_ID" \
+    --issuer "$APPLE_NOTARY_ISSUER_ID" || true
+  if [[ -f "$NOTARY_LOG_PATH" ]]; then
+    echo "Saved Apple notarization log to $NOTARY_LOG_PATH" >&2
+  fi
+  exit 1
+fi
+
+echo "Apple notarization accepted submission $NOTARY_SUBMISSION_ID."
 
 xcrun stapler staple "$DMG_PATH"
 xcrun stapler validate "$DMG_PATH"

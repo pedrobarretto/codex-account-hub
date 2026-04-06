@@ -11,6 +11,7 @@ permissions:
 jobs:
   build-release:
     runs-on: macos-15
+    timeout-minutes: 30
 
     steps:
       - name: Check out repository
@@ -31,6 +32,7 @@ jobs:
           APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
           APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
           APPLE_NOTARY_API_PRIVATE_KEY: ${{ secrets.APPLE_NOTARY_API_PRIVATE_KEY }}
+          APPLE_NOTARY_WAIT_TIMEOUT: 15m
         run: ./scripts/release/build_release_artifacts.sh
 
       - name: Publish GitHub Release
