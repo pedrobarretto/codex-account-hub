@@ -1,0 +1,73 @@
+name: Poll Notarizations
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  discover-prepare-release-runs:
+    runs-on: ubuntu-latest
+    outputs:
+      source_run_ids: ${{ steps.discover.outputs.source_run_ids }}
+
+    steps:
+      - name: Discover recent successful Prepare Release runs
+        id: discover
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          SUCCESSFUL_RUN_IDS="$(
+            gh api "/repos/${GITHUB_REPOSITORY}/actions/workflows/release.yml/runs?status=completed&per_page=30" \
+              --jq '[.workflow_runs[] | select(.conclusion == "success") | .id | tostring] | unique'
+          )"
+
+          TERMINAL_RUN_IDS="$(
+            gh api --paginate "/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100" |
+              jq -s '
+                [
+                  .[].artifacts[]?
+                  | select(.expired == false)
+                  | .name
+                  | select(
+                      test("^release-finalized-[0-9]+$")
+                      or test("^release-skipped-[0-9]+$")
+                      or test("^notarization-diagnostics-[0-9]+-failed$")
+                    )
+                  | if test("^release-finalized-[0-9]+$") then
+                      capture("^release-finalized-(?<source_run_id>[0-9]+)$").source_run_id
+                    elif test("^release-skipped-[0-9]+$") then
+                      capture("^release-skipped-(?<source_run_id>[0-9]+)$").source_run_id
+                    else
+                      capture("^notarization-diagnostics-(?<source_run_id>[0-9]+)-failed$").source_run_id
+                    end
+                ] | unique
+              '
+          )"
+
+          SOURCE_RUN_IDS="$(
+            jq -cn \
+              --argjson successful "$SUCCESSFUL_RUN_IDS" \
+              --argjson terminal "$TERMINAL_RUN_IDS" \
+              '$successful - $terminal'
+          )"
+
+          echo "source_run_ids=${SOURCE_RUN_IDS:-[]}" >> "$GITHUB_OUTPUT"
+
+  finalize-release-runs:
+    needs: discover-prepare-release-runs
+    if: ${{ needs.discover-prepare-release-runs.outputs.source_run_ids != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        source_run_id: ${{ fromJson(needs.discover-prepare-release-runs.outputs.source_run_ids) }}
+    uses: ./.github/workflows/finalize-release.yml
+    with:
+      source_run_id: ${{ matrix.source_run_id }}
+    secrets: inherit

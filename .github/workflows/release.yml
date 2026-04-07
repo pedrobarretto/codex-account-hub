@@ -33,14 +33,12 @@ jobs:
           APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
           APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
           APPLE_NOTARY_API_PRIVATE_KEY: ${{ secrets.APPLE_NOTARY_API_PRIVATE_KEY }}
-          APPLE_NOTARY_WAIT_TIMEOUT: 15m
-          NOTARY_WAIT_FOR_COMPLETION: "false"
         run: ./scripts/release/build_release_artifacts.sh
 
       - name: Upload release bundle
         uses: actions/upload-artifact@v4
         with:
-          name: release-bundle-${{ github.ref_name }}
+          name: release-bundle-${{ github.run_id }}
           path: |
             dist/*.dmg
             dist/notary-metadata.json
