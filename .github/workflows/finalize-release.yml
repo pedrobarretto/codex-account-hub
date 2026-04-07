@@ -1,41 +1,34 @@
 name: Finalize Release
-run-name: >-
-  Finalize Release (source ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || github.event.workflow_run.id }},
-  attempt ${{ github.event_name == 'workflow_dispatch' && inputs.poll_attempt || '1' }})
+run-name: Finalize Release (source ${{ inputs.source_run_id }})
 
 on:
-  workflow_run:
-    workflows:
-      - Prepare Release
-    types:
-      - completed
+  workflow_call:
+    inputs:
+      source_run_id:
+        description: Workflow run ID from Prepare Release.
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       source_run_id:
         description: Workflow run ID from Prepare Release.
         required: true
-      poll_attempt:
-        description: Current notarization polling attempt.
-        required: false
-        default: "1"
+        type: string
 
 permissions:
-  actions: write
+  actions: read
   contents: write
 
 concurrency:
-  group: finalize-release-${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || github.event.workflow_run.id }}
+  group: finalize-release-${{ inputs.source_run_id }}
   cancel-in-progress: false
 
 jobs:
   finalize-release:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: macos-15
-    timeout-minutes: 40
+    timeout-minutes: 20
     env:
-      SOURCE_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || github.event.workflow_run.id }}
-      POLL_ATTEMPT: ${{ github.event_name == 'workflow_dispatch' && inputs.poll_attempt || '1' }}
-      MAX_POLL_ATTEMPTS: "24"
+      SOURCE_RUN_ID: ${{ inputs.source_run_id }}
 
     steps:
       - name: Check out repository
@@ -48,7 +41,43 @@ jobs:
           sudo xcode-select -s "$DEVELOPER_DIR_PATH"
           xcodebuild -version
 
+      - name: Skip source runs with recorded terminal notarization results
+        id: terminal-marker
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          TERMINAL_MARKERS_JSON="$(
+            gh api --paginate "/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100" |
+              jq -s --arg finalized "release-finalized-${SOURCE_RUN_ID}" --arg skipped "release-skipped-${SOURCE_RUN_ID}" --arg failed "notarization-diagnostics-${SOURCE_RUN_ID}-failed" '
+                {
+                  finalized: any(.[].artifacts[]?; .expired == false and .name == $finalized),
+                  skipped: any(.[].artifacts[]?; .expired == false and .name == $skipped),
+                  failed: any(.[].artifacts[]?; .expired == false and .name == $failed)
+                }
+              '
+          )"
+
+          if [[ "$(printf '%s' "$TERMINAL_MARKERS_JSON" | jq -r '.finalized')" == "true" ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "state=finalized" >> "$GITHUB_OUTPUT"
+            echo "A finalized release marker already exists for source run ${SOURCE_RUN_ID}."
+          elif [[ "$(printf '%s' "$TERMINAL_MARKERS_JSON" | jq -r '.skipped')" == "true" ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "state=skipped" >> "$GITHUB_OUTPUT"
+            echo "A skipped release marker already exists for source run ${SOURCE_RUN_ID}."
+          elif [[ "$(printf '%s' "$TERMINAL_MARKERS_JSON" | jq -r '.failed')" == "true" ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "state=failed" >> "$GITHUB_OUTPUT"
+            echo "A failed notarization diagnostic artifact already exists for source run ${SOURCE_RUN_ID}."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            echo "state=none" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Download release bundle
+        if: ${{ steps.terminal-marker.outputs.skip != 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -68,50 +97,124 @@ jobs:
           gh run download "$SOURCE_RUN_ID" --name "$ARTIFACT_NAME" --dir dist
 
       - name: Read release metadata
+        if: ${{ steps.terminal-marker.outputs.skip != 'true' }}
         id: metadata
         run: |
           set -euo pipefail
-          TAG_NAME="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["tag_name"])' dist/notary-metadata.json)"
-          if [[ -z "$TAG_NAME" ]]; then
-            echo "Tag name missing from dist/notary-metadata.json" >&2
+          TAG_NAME="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("tag_name",""))' dist/notary-metadata.json)"
+          DMG_NAME="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["dmg_name"])' dist/notary-metadata.json)"
+          SOURCE_RUN_ID_IN_METADATA="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("source_run_id",""))' dist/notary-metadata.json)"
+
+          if [[ -n "$SOURCE_RUN_ID_IN_METADATA" && "$SOURCE_RUN_ID_IN_METADATA" != "$SOURCE_RUN_ID" ]]; then
+            echo "Release metadata source_run_id ${SOURCE_RUN_ID_IN_METADATA} does not match requested source run ${SOURCE_RUN_ID}." >&2
             exit 1
           fi
-          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
 
-      - name: Finalize notarization and staple DMG
-        id: finalize
+          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+          echo "dmg_name=$DMG_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Skip release bundles without a tag
+        if: ${{ steps.terminal-marker.outputs.skip != 'true' && steps.metadata.outputs.tag_name == '' }}
+        run: echo "Skipping source run ${SOURCE_RUN_ID} because notary-metadata.json has no tag_name."
+
+      - name: Record skipped marker for non-tag source runs
+        if: ${{ steps.terminal-marker.outputs.skip != 'true' && steps.metadata.outputs.tag_name == '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-skipped-${{ env.SOURCE_RUN_ID }}
+          path: dist/notary-metadata.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Check whether release asset already exists
+        if: ${{ steps.terminal-marker.outputs.skip != 'true' && steps.metadata.outputs.tag_name != '' }}
+        id: published
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ steps.metadata.outputs.tag_name }}
+          DMG_NAME: ${{ steps.metadata.outputs.dmg_name }}
+        run: |
+          set -euo pipefail
+
+          RELEASE_ASSETS="$(gh release view "$TAG_NAME" --json assets --jq '.assets[].name' 2>/dev/null || true)"
+
+          if printf '%s\n' "$RELEASE_ASSETS" | grep -Fxq "$DMG_NAME"; then
+            echo "already_published=true" >> "$GITHUB_OUTPUT"
+            echo "Release asset $DMG_NAME already exists on tag $TAG_NAME."
+          else
+            echo "already_published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check notarization status
+        if: ${{ steps.terminal-marker.outputs.skip != 'true' && steps.metadata.outputs.tag_name != '' && steps.published.outputs.already_published != 'true' }}
+        id: status
         continue-on-error: true
         env:
           APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
           APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
           APPLE_NOTARY_API_PRIVATE_KEY: ${{ secrets.APPLE_NOTARY_API_PRIVATE_KEY }}
-          APPLE_NOTARY_WAIT_TIMEOUT: 30m
-          APPLE_NOTARY_POLL_INTERVAL: 2m
         run: |
           set +e
-          ./scripts/release/finalize_release_artifacts.sh
+          ./scripts/release/check_notarization_status.sh
           EXIT_STATUS=$?
           set -e
 
           case "$EXIT_STATUS" in
             0)
-              echo "result=accepted" >> "$GITHUB_OUTPUT"
+              RESULT="accepted"
               ;;
             75)
-              echo "result=pending" >> "$GITHUB_OUTPUT"
+              RESULT="pending"
               ;;
             *)
-              echo "result=failed" >> "$GITHUB_OUTPUT"
-              echo "exit_status=$EXIT_STATUS" >> "$GITHUB_OUTPUT"
-              exit "$EXIT_STATUS"
+              RESULT="failed"
               ;;
           esac
 
+          echo "result=$RESULT" >> "$GITHUB_OUTPUT"
+          echo "exit_status=$EXIT_STATUS" >> "$GITHUB_OUTPUT"
+
+          if [[ "$RESULT" == "failed" ]]; then
+            exit "$EXIT_STATUS"
+          fi
+
+      - name: Finalize release artifacts
+        if: ${{ steps.status.outputs.result == 'accepted' }}
+        run: ./scripts/release/finalize_release_artifacts.sh
+
+      - name: Publish GitHub Release assets
+        if: ${{ steps.status.outputs.result == 'accepted' && steps.metadata.outputs.tag_name != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ steps.metadata.outputs.tag_name }}
+          DMG_NAME: ${{ steps.metadata.outputs.dmg_name }}
+        run: |
+          set -euo pipefail
+
+          DMG_PATH="dist/${DMG_NAME}"
+          SHA_PATH="${DMG_PATH}.sha256"
+          RELEASE_ASSETS="$(gh release view "$TAG_NAME" --json assets --jq '.assets[].name' 2>/dev/null || true)"
+
+          if printf '%s\n' "$RELEASE_ASSETS" | grep -Fxq "$DMG_NAME"; then
+            echo "Release asset $DMG_NAME already exists on tag $TAG_NAME. Skipping publish."
+            exit 0
+          fi
+
+          if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            gh release upload "$TAG_NAME" "$DMG_PATH" "$SHA_PATH" --clobber
+          else
+            gh release create \
+              "$TAG_NAME" \
+              "$DMG_PATH" \
+              "$SHA_PATH" \
+              --notes "Signed and notarized macOS release artifacts for this tag."
+          fi
+
       - name: Upload notarization diagnostics
-        if: ${{ always() }}
+        if: ${{ always() && steps.terminal-marker.outputs.skip != 'true' && steps.metadata.outputs.tag_name != '' && steps.published.outputs.already_published != 'true' }}
         uses: actions/upload-artifact@v4
         with:
-          name: notarization-diagnostics-${{ env.SOURCE_RUN_ID }}-attempt-${{ env.POLL_ATTEMPT }}
+          name: notarization-diagnostics-${{ env.SOURCE_RUN_ID }}-${{ steps.status.outputs.result || 'unknown' }}
           path: |
             dist/notary-metadata.json
             dist/notary-status.json
@@ -119,41 +222,44 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Queue another notarization poll
-        if: ${{ steps.finalize.outputs.result == 'pending' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
+      - name: Record finalized marker for an already published release
+        if: ${{ steps.published.outputs.already_published == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-finalized-${{ env.SOURCE_RUN_ID }}
+          path: dist/notary-metadata.json
+          if-no-files-found: error
+          retention-days: 14
 
-          if (( POLL_ATTEMPT >= MAX_POLL_ATTEMPTS )); then
-            echo "Apple notarization is still pending after ${POLL_ATTEMPT} attempts." >&2
-            exit 1
-          fi
+      - name: Record finalized marker after publish
+        if: ${{ steps.status.outputs.result == 'accepted' && steps.metadata.outputs.tag_name != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-finalized-${{ env.SOURCE_RUN_ID }}
+          path: dist/notary-metadata.json
+          if-no-files-found: error
+          retention-days: 14
 
-          NEXT_ATTEMPT=$((POLL_ATTEMPT + 1))
-          gh workflow run "Finalize Release" \
-            -f source_run_id="$SOURCE_RUN_ID" \
-            -f poll_attempt="$NEXT_ATTEMPT"
+      - name: Stop because release is already published
+        if: ${{ steps.published.outputs.already_published == 'true' }}
+        run: echo "Skipping source run ${SOURCE_RUN_ID} because the DMG asset is already published."
 
-          echo "Queued notarization polling attempt $NEXT_ATTEMPT for source run $SOURCE_RUN_ID."
+      - name: Stop because source run is already finalized
+        if: ${{ steps.terminal-marker.outputs.state == 'finalized' }}
+        run: echo "Skipping source run ${SOURCE_RUN_ID} because it was already finalized by an earlier run."
+
+      - name: Stop because source run already failed notarization
+        if: ${{ steps.terminal-marker.outputs.state == 'failed' }}
+        run: echo "Skipping source run ${SOURCE_RUN_ID} because notarization already failed and the Apple log was captured."
+
+      - name: Stop because source run is a non-tag smoke test
+        if: ${{ steps.terminal-marker.outputs.state == 'skipped' }}
+        run: echo "Skipping source run ${SOURCE_RUN_ID} because it was intentionally prepared from a non-tag ref."
 
       - name: Stop because notarization is still pending
-        if: ${{ steps.finalize.outputs.result == 'pending' }}
-        run: |
-          echo "Apple notarization is still in progress. A follow-up finalize run has been queued."
+        if: ${{ steps.status.outputs.result == 'pending' }}
+        run: echo "Apple notarization is still in progress. This run performed a single status check only."
 
       - name: Fail on notarization error
-        if: ${{ steps.finalize.outputs.result == 'failed' }}
+        if: ${{ steps.status.outputs.result == 'failed' }}
         run: exit 1
-
-      - name: Publish GitHub Release
-        if: ${{ steps.metadata.outputs.tag_name != '' && steps.finalize.outputs.result == 'accepted' }}
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.metadata.outputs.tag_name }}
-          files: |
-            dist/*.dmg
-            dist/*.sha256
-          body: |
-            Signed and notarized macOS release artifacts for this tag.
