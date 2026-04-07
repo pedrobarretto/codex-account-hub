@@ -1,4 +1,7 @@
 name: Finalize Release
+run-name: >-
+  Finalize Release (source ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || github.event.workflow_run.id }},
+  attempt ${{ github.event_name == 'workflow_dispatch' && inputs.poll_attempt || '1' }})
 
 on:
   workflow_run:
@@ -11,18 +14,28 @@ on:
       source_run_id:
         description: Workflow run ID from Prepare Release.
         required: true
+      poll_attempt:
+        description: Current notarization polling attempt.
+        required: false
+        default: "1"
 
 permissions:
-  actions: read
+  actions: write
   contents: write
+
+concurrency:
+  group: finalize-release-${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || github.event.workflow_run.id }}
+  cancel-in-progress: false
 
 jobs:
   finalize-release:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: macos-15
-    timeout-minutes: 25
+    timeout-minutes: 40
     env:
       SOURCE_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || github.event.workflow_run.id }}
+      POLL_ATTEMPT: ${{ github.event_name == 'workflow_dispatch' && inputs.poll_attempt || '1' }}
+      MAX_POLL_ATTEMPTS: "24"
 
     steps:
       - name: Check out repository
@@ -66,15 +79,76 @@ jobs:
           echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Finalize notarization and staple DMG
+        id: finalize
+        continue-on-error: true
         env:
           APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
           APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
           APPLE_NOTARY_API_PRIVATE_KEY: ${{ secrets.APPLE_NOTARY_API_PRIVATE_KEY }}
-          APPLE_NOTARY_WAIT_TIMEOUT: 20m
-        run: ./scripts/release/finalize_release_artifacts.sh
+          APPLE_NOTARY_WAIT_TIMEOUT: 30m
+          APPLE_NOTARY_POLL_INTERVAL: 2m
+        run: |
+          set +e
+          ./scripts/release/finalize_release_artifacts.sh
+          EXIT_STATUS=$?
+          set -e
+
+          case "$EXIT_STATUS" in
+            0)
+              echo "result=accepted" >> "$GITHUB_OUTPUT"
+              ;;
+            75)
+              echo "result=pending" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "result=failed" >> "$GITHUB_OUTPUT"
+              echo "exit_status=$EXIT_STATUS" >> "$GITHUB_OUTPUT"
+              exit "$EXIT_STATUS"
+              ;;
+          esac
+
+      - name: Upload notarization diagnostics
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: notarization-diagnostics-${{ env.SOURCE_RUN_ID }}-attempt-${{ env.POLL_ATTEMPT }}
+          path: |
+            dist/notary-metadata.json
+            dist/notary-status.json
+            dist/notary-log.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Queue another notarization poll
+        if: ${{ steps.finalize.outputs.result == 'pending' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          if (( POLL_ATTEMPT >= MAX_POLL_ATTEMPTS )); then
+            echo "Apple notarization is still pending after ${POLL_ATTEMPT} attempts." >&2
+            exit 1
+          fi
+
+          NEXT_ATTEMPT=$((POLL_ATTEMPT + 1))
+          gh workflow run "Finalize Release" \
+            -f source_run_id="$SOURCE_RUN_ID" \
+            -f poll_attempt="$NEXT_ATTEMPT"
+
+          echo "Queued notarization polling attempt $NEXT_ATTEMPT for source run $SOURCE_RUN_ID."
+
+      - name: Stop because notarization is still pending
+        if: ${{ steps.finalize.outputs.result == 'pending' }}
+        run: |
+          echo "Apple notarization is still in progress. A follow-up finalize run has been queued."
+
+      - name: Fail on notarization error
+        if: ${{ steps.finalize.outputs.result == 'failed' }}
+        run: exit 1
 
       - name: Publish GitHub Release
-        if: ${{ steps.metadata.outputs.tag_name != '' }}
+        if: ${{ steps.metadata.outputs.tag_name != '' && steps.finalize.outputs.result == 'accepted' }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.metadata.outputs.tag_name }}
