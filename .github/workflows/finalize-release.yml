@@ -20,7 +20,7 @@ jobs:
   finalize-release:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: macos-15
-    timeout-minutes: 90
+    timeout-minutes: 25
     env:
       SOURCE_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || github.event.workflow_run.id }}
 
@@ -70,7 +70,7 @@ jobs:
           APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
           APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
           APPLE_NOTARY_API_PRIVATE_KEY: ${{ secrets.APPLE_NOTARY_API_PRIVATE_KEY }}
-          APPLE_NOTARY_WAIT_TIMEOUT: 60m
+          APPLE_NOTARY_WAIT_TIMEOUT: 20m
         run: ./scripts/release/finalize_release_artifacts.sh
 
       - name: Publish GitHub Release
