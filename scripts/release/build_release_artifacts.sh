@@ -171,6 +171,7 @@ rm -f "$DMG_PATH" "$DMG_PATH.sha256"
 hdiutil create \
   -volname "$APP_DISPLAY_NAME" \
   -srcfolder "$STAGING_DIR" \
+  -fs HFS+ \
   -ov \
   -format UDZO \
   "$DMG_PATH"
