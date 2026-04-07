@@ -21,9 +21,11 @@ CERTIFICATE_PATH="$WORK_DIR/developer-id.p12"
 EXPORT_OPTIONS_PLIST="$WORK_DIR/ExportOptions.plist"
 NOTARY_KEY_PATH="$WORK_DIR/AuthKey_${APPLE_NOTARY_KEY_ID:-unknown}.p8"
 NOTARY_WAIT_TIMEOUT="${APPLE_NOTARY_WAIT_TIMEOUT:-15m}"
+NOTARY_WAIT_FOR_COMPLETION="${NOTARY_WAIT_FOR_COMPLETION:-true}"
 NOTARY_SUBMISSION_JSON="$WORK_DIR/notary-submission.json"
 NOTARY_STATUS_JSON="$WORK_DIR/notary-status.json"
 NOTARY_LOG_PATH="$WORK_DIR/notary-log.json"
+NOTARY_METADATA_PATH="${NOTARY_METADATA_PATH:-$DIST_DIR/notary-metadata.json}"
 
 extract_json_field() {
   /usr/bin/plutil -extract "$1" raw -o - "$2" 2>/dev/null | tr -d '\n'
@@ -69,7 +71,7 @@ if [[ -z "$APP_VERSION" ]]; then
   exit 1
 fi
 
-if [[ -n "${GITHUB_REF_NAME:-}" ]]; then
+if [[ "${GITHUB_REF_TYPE:-}" == "tag" && -n "${GITHUB_REF_NAME:-}" ]]; then
   TAG_VERSION="${GITHUB_REF_NAME#v}"
   if [[ "$TAG_VERSION" != "$APP_VERSION" ]]; then
     echo "Tag version $TAG_VERSION does not match MARKETING_VERSION $APP_VERSION." >&2
@@ -180,6 +182,7 @@ codesign \
   --timestamp \
   "$DMG_PATH"
 codesign --verify --verbose=2 "$DMG_PATH"
+hdiutil verify "$DMG_PATH"
 
 xcrun notarytool submit \
   "$DMG_PATH" \
@@ -199,6 +202,23 @@ fi
 echo "Submitted Apple notarization request:"
 echo "  id: $NOTARY_SUBMISSION_ID"
 echo "  timeout: $NOTARY_WAIT_TIMEOUT"
+
+cat > "$NOTARY_METADATA_PATH" <<EOF
+{
+  "tag_name": "${GITHUB_REF_NAME:-}",
+  "app_version": "$APP_VERSION",
+  "dmg_name": "$DMG_NAME",
+  "dmg_path": "$DMG_PATH",
+  "submission_id": "$NOTARY_SUBMISSION_ID"
+}
+EOF
+
+echo "Saved notarization metadata to $NOTARY_METADATA_PATH"
+
+if [[ "$NOTARY_WAIT_FOR_COMPLETION" != "true" ]]; then
+  echo "Skipping Apple notarization wait. Submission can be resumed later with ID $NOTARY_SUBMISSION_ID."
+  exit 0
+fi
 
 set +e
 xcrun notarytool wait \

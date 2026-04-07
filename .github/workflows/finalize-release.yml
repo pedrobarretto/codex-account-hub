@@ -1,0 +1,85 @@
+name: Finalize Release
+
+on:
+  workflow_run:
+    workflows:
+      - Prepare Release
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Workflow run ID from Prepare Release.
+        required: true
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  finalize-release:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: macos-15
+    timeout-minutes: 90
+    env:
+      SOURCE_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || github.event.workflow_run.id }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Select newest installed Xcode
+        run: |
+          DEVELOPER_DIR_PATH="$(ls -d /Applications/Xcode*.app | sort -V | tail -n 1)/Contents/Developer"
+          echo "Using Xcode at $DEVELOPER_DIR_PATH"
+          sudo xcode-select -s "$DEVELOPER_DIR_PATH"
+          xcodebuild -version
+
+      - name: Download release bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          ARTIFACT_NAME="$(
+            gh api "/repos/${GITHUB_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}/artifacts" \
+              --jq '.artifacts[] | select(.expired == false and (.name | startswith("release-bundle-"))) | .name' |
+              head -n 1
+          )"
+
+          if [[ -z "$ARTIFACT_NAME" ]]; then
+            echo "Unable to find a release bundle artifact for run ${SOURCE_RUN_ID}." >&2
+            exit 1
+          fi
+
+          gh run download "$SOURCE_RUN_ID" --name "$ARTIFACT_NAME" --dir dist
+
+      - name: Read release metadata
+        id: metadata
+        run: |
+          set -euo pipefail
+          TAG_NAME="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["tag_name"])' dist/notary-metadata.json)"
+          if [[ -z "$TAG_NAME" ]]; then
+            echo "Tag name missing from dist/notary-metadata.json" >&2
+            exit 1
+          fi
+          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Finalize notarization and staple DMG
+        env:
+          APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
+          APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
+          APPLE_NOTARY_API_PRIVATE_KEY: ${{ secrets.APPLE_NOTARY_API_PRIVATE_KEY }}
+          APPLE_NOTARY_WAIT_TIMEOUT: 60m
+        run: ./scripts/release/finalize_release_artifacts.sh
+
+      - name: Publish GitHub Release
+        if: ${{ steps.metadata.outputs.tag_name != '' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.metadata.outputs.tag_name }}
+          files: |
+            dist/*.dmg
+            dist/*.sha256
+          body: |
+            Signed and notarized macOS release artifacts for this tag.
