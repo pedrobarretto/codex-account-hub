@@ -38,7 +38,7 @@ jobs:
       - name: Upload release bundle
         uses: actions/upload-artifact@v4
         with:
-          name: release-bundle-${{ github.ref_name }}
+          name: release-bundle-${{ github.run_id }}
           path: |
             dist/*.dmg
             dist/notary-metadata.json
