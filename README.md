@@ -36,3 +36,9 @@ Instead of manually replacing files, Codex Account Hub lets you keep named profi
 ## Scope
 
 This project is a local utility for people who work with multiple Codex accounts on the same Mac. It is focused on safe profile storage and predictable account switching, not on cloud sync, account provisioning, or remote credential management.
+
+## Support
+
+If Codex Account Hub is useful to you, you can support the project here:
+
+[Buy Me a Coffee](https://buymeacoffee.com/pedrobarretto)
