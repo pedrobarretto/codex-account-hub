@@ -57,7 +57,7 @@ echo "  dmg: $DMG_PATH"
 
 xcrun stapler staple "$DMG_PATH"
 xcrun stapler validate "$DMG_PATH"
-spctl -a -vv -t open "$DMG_PATH"
+spctl -a -vv -t open --context context:primary-signature "$DMG_PATH"
 
 shasum -a 256 "$DMG_PATH" > "$DMG_PATH.sha256"
 
