@@ -1,3 +1,7 @@
+If Codex Account Hub is useful to you, you can support the project here:
+
+  [Buy Me a Coffee](https://buymeacoffee.com/pedrobarretto)
+
 # Codex Account Hub
 
 <img src="CodexAccountHub/Assets.xcassets/AppIcon.appiconset/appicon-256.png" alt="Codex Account Hub icon" width="96" />
@@ -26,6 +30,11 @@ Instead of manually replacing files, Codex Account Hub lets you keep named profi
 - the app resolves the live auth location from an explicit app override, `CODEX_HOME`, or `~/.codex`
 - profile switching writes the selected payload atomically to the live auth location
 
+## App Preview
+
+<img width="209" height="245" alt="image" src="https://github.com/user-attachments/assets/606d419e-3d16-4a37-8054-6f4f51e74002" />
+<img width="495" height="681" alt="image" src="https://github.com/user-attachments/assets/502ab88e-b8dd-4443-ad93-59721e1bd22a" />
+
 ## Project Structure
 
 - `CodexAccountHub/`: macOS SwiftUI app
@@ -36,9 +45,3 @@ Instead of manually replacing files, Codex Account Hub lets you keep named profi
 ## Scope
 
 This project is a local utility for people who work with multiple Codex accounts on the same Mac. It is focused on safe profile storage and predictable account switching, not on cloud sync, account provisioning, or remote credential management.
-
-## Support
-
-If Codex Account Hub is useful to you, you can support the project here:
-
-[Buy Me a Coffee](https://buymeacoffee.com/pedrobarretto)
