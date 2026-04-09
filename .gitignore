@@ -1,7 +1,17 @@
 .DS_Store
 .build/
 DerivedData/
+.env
+.env.*
 *.xcresult
+*.p8
+*.p12
+*.pem
+*.cer
+*.crt
+*.csr
+*.certSigningRequest
+*.mobileprovision
 **/.build/
 **/.swiftpm/
 **/xcuserdata/
